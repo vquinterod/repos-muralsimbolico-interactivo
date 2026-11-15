@@ -1,0 +1,2228 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="artifact-type" content="narrative">
+  <meta name="design-style" content="canopy">
+  <title>La participación florece en la tierra</title>
+  <link href="https://fonts.googleapis.com/css2?family=Geist+Mono:wght@400;500;600&family=Literata:ital,opsz,wght@0,7..72,400..700;1,7..72,400..600&family=Nunito+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+  <script src="https://unpkg.com/lucide@1.43.0/dist/umd/lucide.min.js"></script>
+  <style>
+    :root {
+      color-scheme: light;
+
+      /* Page and surfaces (Canopy earth strata) */
+      --background: #faf6ef;
+      --surface-container-low: #f0eae0;
+      --surface-container: #e8e0d2;
+      --surface-container-high: #ddd3c2;
+
+      /* Ink */
+      --on-surface: #2a302b;
+      --on-surface-variant: #4a524b;
+
+      /* Lines */
+      --outline: #737872;
+      --outline-variant: #cbc5b8;
+
+      /* Accents */
+      --primary: #366948;
+      --on-primary: #ffffff;
+      --primary-container: #d8efe0;
+      --on-primary-container: #1f4d30;
+      --secondary: #5c635c;
+      --tertiary: #8f5822;
+      --tertiary-container: #f2d4a7;
+      --on-tertiary-container: #6e3f0c;
+      --error: #b83230;
+      --on-error: #ffffff;
+
+      /* Data series */
+      --data-1: #366948;
+      --data-2: #8f5822;
+      --data-3: #a85438;
+      --data-4: #4b6b78;
+      --data-context: #b5b0a3;
+
+      /* Semantic & Focus */
+      --positive: #2f6f44;
+      --warning: #a0621e;
+      --focus: #366948;
+
+      /* Mural narrative palette tokens (from ash-ochre left to emerald-sky right + night-blue plinth) */
+      --mural-sky-ash: #6b6863;
+      --mural-sky-smoke: #8d8880;
+      --mural-sky-amber: #c9b492;
+      --mural-sky-clear: #dbe6df;
+      --mural-sky-blue: #9fc6d8;
+      --mural-sky-sun: #f3e4bd;
+      --mural-ash-dark: #383633;
+      --mural-ash-mid: #57534e;
+      --mural-cane-ochre: #8b6c3e;
+      --mural-cane-dark: #5c4627;
+      --mural-earth-dry: #7a6b58;
+      --mural-earth-rich: #5c4938;
+      --mural-earth-fertile: #486b42;
+      --mural-stone-light: #cfc8ba;
+      --mural-stone-mid: #9c9485;
+      --mural-stone-dark: #635d52;
+      --mural-gold-root: #d9a441;
+      --mural-gold-bright: #f0ca72;
+      --mural-river-clean: #4a90b0;
+      --mural-river-foam: #cbe5f0;
+      --mural-leaf-bright: #4b8f5c;
+      --mural-leaf-deep: #244f32;
+      --mural-crop-green: #69a85a;
+      --mural-wall-cream: #efe8da;
+      --mural-roof-clay: #9c523b;
+      --mural-skin-warm: #c98f65;
+      --mural-skin-deep: #8c5a3c;
+      --mural-cloth-blue: #3f5c73;
+      --mural-cloth-ochre: #b57738;
+      --mural-cloth-white: #f5f2eb;
+      --mural-night-blue: #142236;
+      --mural-night-border: #2c4363;
+      --mural-gold-ink: #ecc875;
+      --mural-plaque-bg: rgba(250, 246, 239, 0.94);
+      --mural-highlight-ring: rgba(240, 202, 114, 0.95);
+      --mural-dim-overlay: rgba(26, 28, 26, 0.34);
+
+      /* Fonts */
+      --font-headline: 'Literata', serif;
+      --font-body: 'Nunito Sans', sans-serif;
+      --font-label: 'Geist Mono', monospace;
+
+      /* Type scale (Narrative) */
+      --display-size: clamp(2.25rem, 1.35rem + 3.4vw, 3.85rem);
+      --headline-size: clamp(1.625rem, 1.2rem + 1.6vw, 2.35rem);
+      --subhead-size: clamp(1.15rem, 1.05rem + 0.45vw, 1.4rem);
+      --body-size: clamp(1.03rem, 0.98rem + 0.22vw, 1.125rem);
+      --label-size: clamp(0.72rem, 0.7rem + 0.12vw, 0.8rem);
+
+      /* Shape */
+      --rounded: 0.625rem;
+      --rounded-lg: 1rem;
+      --rounded-sm: 0.375rem;
+      --rounded-full: 9999px;
+
+      /* Spacing scale (4pt base) */
+      --space-xs: 0.25rem;
+      --space-sm: 0.5rem;
+      --space-md: 1rem;
+      --space-lg: 1.5rem;
+      --space-xl: 2.5rem;
+      --space-2xl: 4rem;
+      --space-3xl: 5.5rem;
+
+      /* Motion */
+      --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+      --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+      --dur-micro: 120ms;
+      --dur-short: 220ms;
+      --dur-long: 420ms;
+
+      /* Style effects */
+      --shadow-soft: 0 4px 20px rgb(42 48 43 / 0.06);
+      --shadow-soft-hover: 0 8px 28px rgb(42 48 43 / 0.09);
+      --border-soft: 1px solid rgb(203 197 184 / 0.65);
+      --focus-glow: 0 0 0 4px rgb(54 105 72 / 0.18);
+    }
+
+    /* Base reset */
+    *, *::before, *::after { box-sizing: border-box; }
+    html, body {
+      overflow-x: clip;
+      margin: 0;
+      padding: 0;
+      background-color: var(--background);
+      color: var(--on-surface);
+      font-family: var(--font-body);
+      font-size: var(--body-size);
+      line-height: 1.65;
+      -webkit-font-smoothing: antialiased;
+    }
+    header { position: static !important; }
+
+    button, input, select, textarea {
+      font-family: inherit;
+      font-size: inherit;
+      color: inherit;
+    }
+
+    :focus-visible {
+      outline: 3px solid var(--focus);
+      outline-offset: 2px;
+      box-shadow: var(--focus-glow);
+    }
+
+    .page-grid {
+      display: grid;
+      gap: var(--space-xl);
+      padding: var(--space-xl) var(--space-lg) var(--space-3xl);
+      max-width: 1240px;
+      margin: 0 auto;
+    }
+    .page-grid * { min-width: 0; }
+
+    /* Typography */
+    .kicker {
+      font-family: var(--font-body);
+      font-weight: 700;
+      font-size: 0.75rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--tertiary);
+      margin: 0 0 var(--space-xs);
+    }
+
+    .mono-label {
+      font-family: var(--font-label);
+      font-weight: 500;
+      font-size: var(--label-size);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--secondary);
+    }
+
+    h1 {
+      font-family: var(--font-headline);
+      font-weight: 600;
+      font-size: var(--display-size);
+      line-height: 1.1;
+      letter-spacing: -0.015em;
+      color: var(--on-surface);
+      margin: 0 0 var(--space-md);
+    }
+
+    h2 {
+      font-family: var(--font-headline);
+      font-weight: 600;
+      font-size: var(--headline-size);
+      line-height: 1.18;
+      letter-spacing: -0.01em;
+      color: var(--on-surface);
+      margin: 0 0 var(--space-sm);
+    }
+
+    h3 {
+      font-family: var(--font-headline);
+      font-weight: 600;
+      font-size: var(--subhead-size);
+      line-height: 1.28;
+      color: var(--on-surface);
+      margin: 0 0 var(--space-xs);
+    }
+
+    p {
+      margin: 0 0 var(--space-md);
+      max-width: 68ch;
+      color: var(--on-surface);
+    }
+
+    .lede {
+      font-size: clamp(1.08rem, 1rem + 0.35vw, 1.24rem);
+      line-height: 1.6;
+      color: var(--on-surface-variant);
+      max-width: 68ch;
+    }
+
+    /* Header block */
+    .hero-header {
+      display: grid;
+      gap: var(--space-md);
+      padding-bottom: var(--space-md);
+      border-bottom: var(--border-soft);
+    }
+
+    .meta-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--space-sm) var(--space-lg);
+      align-items: center;
+      margin-top: var(--space-xs);
+    }
+
+    .meta-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: var(--space-xs);
+      background: var(--surface-container-low);
+      padding: var(--space-xs) var(--space-sm);
+      border-radius: var(--rounded-sm);
+      font-family: var(--font-label);
+      font-size: 0.75rem;
+      color: var(--on-surface-variant);
+    }
+
+    /* Canopy Phenology / Progression Strip */
+    .season-strip {
+      background: var(--surface-container-low);
+      border-radius: var(--rounded-lg);
+      padding: var(--space-md) var(--space-lg);
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: var(--space-md);
+    }
+
+    .season-strip-title {
+      display: flex;
+      flex-direction: column;
+      gap: 0.15rem;
+    }
+
+    .season-cells {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--space-xs);
+      align-items: center;
+    }
+
+    .season-cell {
+      font-family: var(--font-label);
+      font-size: 0.72rem;
+      min-height: 44px;
+      padding: 0 var(--space-sm);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: var(--space-xs);
+      border-radius: var(--rounded-sm);
+      background: var(--surface-container-high);
+      color: var(--secondary);
+      border: 0;
+      cursor: pointer;
+      transition: background-color var(--dur-short) var(--ease-out), transform var(--dur-micro) var(--ease-out), color var(--dur-short) var(--ease-out);
+    }
+
+    .season-cell:hover {
+      background: var(--surface-container);
+      transform: translateY(-1px);
+    }
+
+    .season-cell.is-prep {
+      background: var(--tertiary-container);
+      color: var(--on-tertiary-container);
+      font-weight: 600;
+    }
+
+    .season-cell.is-peak {
+      background: var(--primary);
+      color: var(--on-primary);
+      font-weight: 600;
+    }
+
+    .season-cell[aria-pressed="true"] {
+      box-shadow: 0 0 0 2px var(--on-surface);
+    }
+
+    /* Interactive Mural Section */
+    .mural-section {
+      display: grid;
+      gap: var(--space-md);
+    }
+
+    .mural-controls-bar {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: var(--space-sm) var(--space-md);
+      background: var(--surface-container-low);
+      padding: var(--space-sm) var(--space-md);
+      border-radius: var(--rounded-lg);
+    }
+
+    .zone-nav-group {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--space-xs);
+      align-items: center;
+    }
+
+    .mural-toggles-group {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--space-xs);
+      align-items: center;
+    }
+
+    .btn-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: var(--space-xs);
+      min-height: 44px;
+      padding: var(--space-xs) var(--space-md);
+      border-radius: var(--rounded);
+      border: 0;
+      background: var(--surface-container);
+      color: var(--on-surface);
+      font-weight: 600;
+      font-size: 0.875rem;
+      cursor: pointer;
+      transition: background-color var(--dur-short) var(--ease-out), color var(--dur-short) var(--ease-out), transform var(--dur-micro) var(--ease-out);
+    }
+
+    .btn-pill:hover {
+      background: var(--surface-container-high);
+      transform: translateY(-1px);
+    }
+
+    .btn-pill.is-active {
+      background: var(--primary);
+      color: var(--on-primary);
+    }
+
+    .btn-pill.is-ochre.is-active {
+      background: var(--tertiary);
+      color: var(--on-primary);
+    }
+
+    .btn-secondary {
+      display: inline-flex;
+      align-items: center;
+      gap: var(--space-xs);
+      min-height: 44px;
+      padding: var(--space-xs) var(--space-md);
+      border-radius: var(--rounded);
+      border: var(--border-soft);
+      background: var(--background);
+      color: var(--on-surface);
+      font-weight: 600;
+      font-size: 0.875rem;
+      cursor: pointer;
+      transition: background-color var(--dur-short) var(--ease-out);
+    }
+
+    .btn-secondary:hover {
+      background: var(--surface-container-low);
+    }
+
+    .btn-secondary[aria-pressed="true"] {
+      background: var(--primary-container);
+      color: var(--on-primary-container);
+      border-color: var(--primary);
+    }
+
+    /* Mural Frame (holds panoramic SVG + 5th bottom banner) */
+    .mural-frame {
+      background: var(--surface-container-low);
+      border-radius: var(--rounded-lg);
+      overflow: hidden;
+      box-shadow: var(--shadow-soft);
+      border: var(--border-soft);
+    }
+
+    .mural-stage {
+      position: relative;
+      width: 100%;
+      background: var(--surface-container);
+      overflow-x: auto;
+      overflow-y: hidden;
+      scrollbar-color: var(--outline) var(--surface-container);
+    }
+
+    .mural-svg {
+      display: block;
+      width: 100%;
+      min-width: 820px;
+      height: auto;
+      user-select: none;
+    }
+
+    .mural-scroll-hint {
+      display: none;
+      padding: var(--space-xs) var(--space-md);
+      background: var(--surface-container);
+      font-family: var(--font-label);
+      font-size: 0.72rem;
+      color: var(--on-surface-variant);
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    /* SVG classes using CSS variables exclusively */
+    .svg-sky-stop-1 { stop-color: var(--mural-sky-ash); }
+    .svg-sky-stop-2 { stop-color: var(--mural-sky-amber); }
+    .svg-sky-stop-3 { stop-color: var(--mural-sky-clear); }
+    .svg-sky-stop-4 { stop-color: var(--mural-sky-blue); }
+
+    .svg-ground-dry { stop-color: var(--mural-earth-dry); }
+    .svg-ground-rich { stop-color: var(--mural-earth-rich); }
+    .svg-ground-fertile { stop-color: var(--mural-earth-fertile); }
+
+    .svg-smoke-fill { fill: var(--mural-ash-dark); opacity: 0.72; }
+    .svg-smoke-soft { fill: var(--mural-ash-mid); opacity: 0.55; }
+    .svg-pavesa { fill: var(--mural-ash-dark); }
+    .svg-cane-stalk { stroke: var(--mural-cane-ochre); stroke-width: 4; stroke-linecap: round; }
+    .svg-cane-dark { stroke: var(--mural-cane-dark); stroke-width: 3.5; stroke-linecap: round; }
+    .svg-cane-leaf { fill: var(--mural-cane-ochre); }
+    .svg-wall { fill: var(--mural-wall-cream); stroke: var(--mural-stone-dark); stroke-width: 1.5; }
+    .svg-roof { fill: var(--mural-roof-clay); stroke: var(--mural-ash-dark); stroke-width: 1.5; }
+    .svg-stone-light { fill: var(--mural-stone-light); stroke: var(--mural-stone-dark); stroke-width: 1.5; }
+    .svg-stone-mid { fill: var(--mural-stone-mid); stroke: var(--mural-stone-dark); stroke-width: 1.5; }
+    .svg-gold-root { stroke: var(--mural-gold-root); fill: none; stroke-linecap: round; }
+    .svg-gold-root-bright { stroke: var(--mural-gold-bright); fill: none; stroke-linecap: round; }
+    .svg-river { fill: var(--mural-river-clean); }
+    .svg-river-foam { stroke: var(--mural-river-foam); fill: none; stroke-width: 2.5; stroke-linecap: round; }
+    .svg-tree-trunk { fill: var(--mural-earth-rich); }
+    .svg-tree-canopy { fill: var(--mural-leaf-bright); }
+    .svg-tree-deep { fill: var(--mural-leaf-deep); }
+    .svg-crop { fill: var(--mural-crop-green); }
+
+    .mural-hotspot {
+      cursor: pointer;
+      transition: opacity var(--dur-short) var(--ease-out), filter var(--dur-short) var(--ease-out);
+    }
+
+    .mural-hotspot:hover {
+      filter: brightness(1.06);
+    }
+
+    .mural-hotspot.is-dimmed {
+      opacity: 0.32;
+    }
+
+    .mural-hotspot.is-focused .hotspot-halo {
+      opacity: 1;
+      stroke: var(--mural-gold-bright);
+    }
+
+    .hotspot-halo {
+      fill: none;
+      stroke: var(--mural-gold-root);
+      stroke-width: 3;
+      stroke-dasharray: 6 4;
+      opacity: 0;
+      transition: opacity var(--dur-short) var(--ease-out);
+    }
+
+    .mural-hotspot:hover .hotspot-halo,
+    .mural-hotspot:focus-visible .hotspot-halo {
+      opacity: 0.85;
+    }
+
+    .mural-labels-layer {
+      transition: opacity var(--dur-short) var(--ease-out);
+    }
+
+    .mural-labels-layer.is-hidden {
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    .svg-plaque-bg {
+      fill: var(--mural-plaque-bg);
+      stroke: var(--mural-stone-dark);
+      stroke-width: 1.25;
+    }
+
+    .svg-plaque-text {
+      font-family: var(--font-label);
+      font-size: 11px;
+      font-weight: 600;
+      fill: var(--on-surface);
+    }
+
+    .svg-zone-badge {
+      fill: var(--mural-night-blue);
+    }
+
+    .svg-zone-badge-text {
+      font-family: var(--font-label);
+      font-size: 10.5px;
+      font-weight: 600;
+      fill: var(--mural-gold-ink);
+      letter-spacing: 0.05em;
+    }
+
+    .svg-leaf-art {
+      fill: var(--primary-container);
+      stroke: var(--primary);
+      stroke-width: 1.3;
+    }
+
+    .svg-leaf-text {
+      font-family: var(--font-label);
+      font-size: 9.5px;
+      font-weight: 700;
+      fill: var(--on-primary-container);
+      text-anchor: middle;
+    }
+
+    /* Simulation state transforms inside mural */
+    .mural-svg[data-state="participacion"] .asfixia-extra {
+      opacity: 0.16;
+      transition: opacity var(--dur-long) var(--ease-out);
+    }
+    .mural-svg[data-state="asfixia"] .asfixia-extra {
+      opacity: 0.92;
+      transition: opacity var(--dur-long) var(--ease-out);
+    }
+    .mural-svg[data-state="asfixia"] .participacion-glow {
+      opacity: 0.35;
+      transition: opacity var(--dur-long) var(--ease-out);
+    }
+    .mural-svg[data-state="participacion"] .participacion-glow {
+      opacity: 1;
+      transition: opacity var(--dur-long) var(--ease-out);
+    }
+
+    /* Section 5: Bottom Ethical Banner (part of the mural frame) */
+    .mural-ethical-banner {
+      background: var(--mural-night-blue);
+      border-top: 3px solid var(--mural-gold-root);
+      padding: var(--space-lg) var(--space-xl);
+      display: grid;
+      gap: var(--space-xs);
+      cursor: pointer;
+      transition: background-color var(--dur-short) var(--ease-out);
+    }
+
+    .mural-ethical-banner:hover {
+      background: var(--mural-night-border);
+    }
+
+    .mural-ethical-kicker {
+      font-family: var(--font-label);
+      font-size: 0.75rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--mural-gold-ink);
+      opacity: 0.9;
+    }
+
+    .mural-ethical-quote {
+      font-family: var(--font-headline);
+      font-size: clamp(1.1rem, 0.98rem + 0.65vw, 1.48rem);
+      font-weight: 500;
+      font-style: italic;
+      line-height: 1.45;
+      color: var(--mural-gold-ink);
+      margin: 0;
+      max-width: 78ch;
+    }
+
+    /* Interactive Mural Visor (Spatial Contiguity panel directly below mural) */
+    .visor-panel {
+      background: var(--surface-container-low);
+      border-radius: var(--rounded-lg);
+      padding: var(--space-lg);
+      display: grid;
+      grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr);
+      gap: var(--space-lg);
+      align-items: start;
+      box-shadow: var(--shadow-soft);
+    }
+
+    .visor-header {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: var(--space-sm);
+      margin-bottom: var(--space-sm);
+    }
+
+    .visor-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: var(--space-xs);
+      padding: var(--space-xs) var(--space-sm);
+      border-radius: var(--rounded-sm);
+      background: var(--tertiary-container);
+      color: var(--on-tertiary-container);
+      font-family: var(--font-label);
+      font-size: 0.72rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .visor-badge.is-green {
+      background: var(--primary-container);
+      color: var(--on-primary-container);
+    }
+
+    .visor-meta-box {
+      background: var(--background);
+      border-radius: var(--rounded);
+      padding: var(--space-md);
+      border: var(--border-soft);
+      display: grid;
+      gap: var(--space-sm);
+    }
+
+    .visor-nav-btns {
+      display: flex;
+      gap: var(--space-sm);
+      margin-top: var(--space-sm);
+    }
+
+    /* Content sections & cards */
+    .narrative-section {
+      display: grid;
+      gap: var(--space-lg);
+      padding-top: var(--space-lg);
+      border-top: var(--border-soft);
+    }
+
+    .section-intro {
+      display: grid;
+      gap: var(--space-xs);
+    }
+
+    .card-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(min(290px, 100%), 1fr));
+      gap: var(--space-lg);
+    }
+
+    .card-grid-2 {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(min(360px, 100%), 1fr));
+      gap: var(--space-lg);
+    }
+
+    .card {
+      background: var(--surface-container-low);
+      border-radius: var(--rounded-lg);
+      padding: var(--space-lg);
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-sm);
+    }
+
+    .card.is-leaf-highlight {
+      background: var(--primary-container);
+      color: var(--on-primary-container);
+    }
+
+    .card.is-leaf-highlight h3,
+    .card.is-leaf-highlight p,
+    .card.is-leaf-highlight li {
+      color: var(--on-primary-container);
+    }
+
+    .card.is-interactive {
+      box-shadow: var(--shadow-soft);
+      transition: transform var(--dur-short) var(--ease-out), box-shadow var(--dur-short) var(--ease-out);
+    }
+
+    .card.is-interactive:hover {
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-soft-hover);
+    }
+
+    .tag-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--space-xs);
+    }
+
+    .tag {
+      display: inline-flex;
+      align-items: center;
+      padding: 0.2rem 0.55rem;
+      border-radius: var(--rounded-sm);
+      font-family: var(--font-label);
+      font-size: 0.72rem;
+      font-weight: 500;
+      background: var(--tertiary-container);
+      color: var(--on-tertiary-container);
+    }
+
+    .tag.is-leaf {
+      background: var(--primary-container);
+      color: var(--on-primary-container);
+    }
+
+    .tag.is-neutral {
+      background: var(--surface-container-high);
+      color: var(--on-surface-variant);
+    }
+
+    .pull-quote {
+      border-left: 4px solid var(--tertiary);
+      padding: var(--space-sm) var(--space-md);
+      background: var(--surface-container);
+      border-radius: 0 var(--rounded) var(--rounded) 0;
+      font-family: var(--font-headline);
+      font-style: italic;
+      color: var(--on-surface);
+      margin: var(--space-xs) 0;
+    }
+
+    /* Key stats / metrics row (ESAP Unidad 2 context) */
+    .metrics-row {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(min(220px, 100%), 1fr));
+      gap: var(--space-md);
+    }
+
+    .metric-tile {
+      background: var(--surface-container-low);
+      border-radius: var(--rounded-lg);
+      padding: var(--space-md) var(--space-lg);
+      display: grid;
+      gap: 0.25rem;
+    }
+
+    .metric-value {
+      font-family: var(--font-headline);
+      font-weight: 600;
+      font-size: clamp(1.65rem, 1.35rem + 1vw, 2.2rem);
+      font-variant-numeric: lining-nums tabular-nums;
+      color: var(--on-surface);
+      line-height: 1.15;
+    }
+
+    .metric-caption {
+      font-size: 0.875rem;
+      color: var(--tertiary);
+      font-weight: 600;
+    }
+
+    /* Expandable Mechanism Cards (Fichas explicativas desplegables) */
+    .mechanisms-header-bar {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: var(--space-md);
+    }
+
+    .mechanisms-list {
+      display: grid;
+      gap: var(--space-md);
+    }
+
+    .mechanism-card {
+      background: var(--surface-container-low);
+      border-radius: var(--rounded-lg);
+      box-shadow: var(--shadow-soft);
+      overflow: hidden;
+      transition: box-shadow var(--dur-short) var(--ease-out);
+    }
+
+    .mechanism-card:hover {
+      box-shadow: var(--shadow-soft-hover);
+    }
+
+    .mechanism-trigger {
+      width: 100%;
+      min-height: 60px;
+      padding: var(--space-md) var(--space-lg);
+      background: transparent;
+      border: 0;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: var(--space-md);
+      text-align: left;
+      cursor: pointer;
+    }
+
+    .mechanism-trigger:hover {
+      background: var(--surface-container);
+    }
+
+    .mechanism-trigger-main {
+      display: grid;
+      gap: 0.2rem;
+    }
+
+    .mechanism-title-row {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: var(--space-sm);
+    }
+
+    .mechanism-chevron {
+      flex-shrink: 0;
+      width: 36px;
+      height: 36px;
+      border-radius: var(--rounded-full);
+      background: var(--surface-container-high);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--on-surface);
+      transition: transform var(--dur-short) var(--ease-in-out), background-color var(--dur-short) var(--ease-out);
+    }
+
+    .mechanism-trigger[aria-expanded="true"] .mechanism-chevron {
+      transform: rotate(180deg);
+      background: var(--primary);
+      color: var(--on-primary);
+    }
+
+    .mechanism-body {
+      padding: 0 var(--space-lg) var(--space-lg);
+      border-top: var(--border-soft);
+      display: grid;
+      gap: var(--space-md);
+      padding-top: var(--space-md);
+    }
+
+    .mechanism-body[hidden] {
+      display: none;
+    }
+
+    .mechanism-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(min(220px, 100%), 1fr));
+      gap: var(--space-md);
+    }
+
+    .mechanism-field {
+      background: var(--background);
+      border-radius: var(--rounded);
+      padding: var(--space-md);
+      border: var(--border-soft);
+    }
+
+    .mechanism-field h4 {
+      font-family: var(--font-label);
+      font-size: 0.72rem;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--tertiary);
+      margin: 0 0 var(--space-xs);
+    }
+
+    .mechanism-field p {
+      font-size: 0.94rem;
+      margin: 0;
+    }
+
+    /* Constitutional Tree Explorer */
+    .const-articles-bar {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--space-xs);
+    }
+
+    .leaf-btn {
+      min-height: 44px;
+      padding: var(--space-xs) var(--space-md);
+      border-radius: var(--rounded-full);
+      border: var(--border-soft);
+      background: var(--surface-container-low);
+      color: var(--on-surface);
+      font-family: var(--font-label);
+      font-size: 0.8rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background-color var(--dur-short) var(--ease-out), color var(--dur-short) var(--ease-out);
+    }
+
+    .leaf-btn:hover {
+      background: var(--primary-container);
+      color: var(--on-primary-container);
+    }
+
+    .leaf-btn[aria-pressed="true"] {
+      background: var(--primary);
+      color: var(--on-primary);
+      border-color: var(--primary);
+    }
+
+    .const-detail-card {
+      background: var(--surface-container-low);
+      border-radius: var(--rounded-lg);
+      padding: var(--space-lg);
+      display: grid;
+      gap: var(--space-xs);
+      border-left: 4px solid var(--primary);
+    }
+
+    /* Ethical Learnings Interactive Checklist */
+    .ethics-list {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      display: grid;
+      gap: var(--space-sm);
+    }
+
+    .ethics-item {
+      background: var(--surface-container-low);
+      border-radius: var(--rounded);
+      padding: var(--space-md);
+      display: grid;
+      grid-template-columns: auto minmax(0, 1fr);
+      gap: var(--space-md);
+      align-items: start;
+    }
+
+    .ethics-num {
+      width: 32px;
+      height: 32px;
+      border-radius: var(--rounded-full);
+      background: var(--primary);
+      color: var(--on-primary);
+      font-family: var(--font-label);
+      font-size: 0.82rem;
+      font-weight: 600;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    /* Table for normative summary */
+    .table-wrap {
+      width: 100%;
+      overflow-x: auto;
+      background: var(--surface-container-low);
+      border-radius: var(--rounded-lg);
+      padding: var(--space-sm);
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      text-align: left;
+      font-size: 0.94rem;
+    }
+
+    th {
+      font-family: var(--font-label);
+      font-size: 0.72rem;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--secondary);
+      padding: var(--space-sm) var(--space-md);
+      border-bottom: var(--border-soft);
+      background: var(--surface-container-low);
+    }
+
+    td {
+      padding: var(--space-md);
+      border-bottom: var(--border-soft);
+      vertical-align: top;
+      color: var(--on-surface);
+    }
+
+    tr:last-child td {
+      border-bottom: 0;
+    }
+
+    /* References & Footer */
+    .closing-quote-card {
+      background: var(--mural-night-blue);
+      color: var(--mural-gold-ink);
+      border-radius: var(--rounded-lg);
+      padding: var(--space-xl) var(--space-lg);
+      display: grid;
+      gap: var(--space-sm);
+      text-align: left;
+    }
+
+    .closing-quote-card blockquote {
+      margin: 0;
+      font-family: var(--font-headline);
+      font-size: clamp(1.2rem, 1rem + 0.8vw, 1.65rem);
+      line-height: 1.4;
+      color: var(--mural-gold-ink);
+    }
+
+    .closing-quote-card cite {
+      font-style: normal;
+      font-family: var(--font-label);
+      font-size: 0.78rem;
+      letter-spacing: 0.05em;
+      color: var(--mural-stone-light);
+    }
+
+    .refs-list {
+      margin: 0;
+      padding-left: var(--space-lg);
+      display: grid;
+      gap: var(--space-xs);
+      color: var(--on-surface-variant);
+      font-size: 0.92rem;
+    }
+
+    /* Scroll reveal */
+    .reveal {
+      opacity: 0;
+      transform: translateY(14px);
+      transition: opacity var(--dur-long) var(--ease-out), transform var(--dur-long) var(--ease-out);
+    }
+    .reveal.is-visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    @media (max-width: 860px) {
+      .visor-panel {
+        grid-template-columns: 1fr;
+      }
+      .mural-scroll-hint {
+        display: flex;
+      }
+    }
+
+    @media (max-width: 640px) {
+      .page-grid {
+        padding: var(--space-md) var(--space-sm) var(--space-2xl);
+        gap: var(--space-lg);
+      }
+      .mural-ethical-banner {
+        padding: var(--space-md);
+      }
+      .card {
+        padding: var(--space-md);
+      }
+      .mechanism-trigger {
+        padding: var(--space-md);
+      }
+      .mechanism-body {
+        padding: 0 var(--space-md) var(--space-md);
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+      }
+    }
+  </style>
+</head>
+<body>
+  <main class="page-grid">
+
+    <!-- 1. ENCABEZADO EDITORIAL -->
+    <header class="hero-header">
+      <p class="kicker">Actividad Integradora Unidad 2 · Convivencia y Participación Ciudadana</p>
+      <h1>La participación florece en la tierra</h1>
+      <p class="lede">
+        Mural simbólico horizontal y recorrido analítico sobre la democracia territorial, la justicia ambiental y el deber ético del servidor público, a partir de la película <em>La tierra y la sombra</em> (César Acevedo, 2015) y el marco normativo colombiano de participación ciudadana.
+      </p>
+      <div class="meta-row">
+        <span class="meta-pill"><i data-lucide="map-pin" aria-hidden="true"></i> Candelaria, Valle del Cauca</span>
+        <span class="meta-pill"><i data-lucide="book-open" aria-hidden="true"></i> Administración Pública Territorial · Cuarto Semestre</span>
+        <span class="meta-pill"><i data-lucide="scale" aria-hidden="true"></i> C.P. 1991 · Leyes 134/1994, 1757/2015 y 99/1993</span>
+      </div>
+    </header>
+
+    <!-- BARRA DE CICLO PROGRESIVO (Canopy strip) -->
+    <nav class="season-strip" aria-label="Progresión narrativa del mural en cinco secciones">
+      <div class="season-strip-title">
+        <span class="mono-label">Almanaque del mural · 5 estaciones horizontales</span>
+        <span style="font-size: 0.9rem; color: var(--on-surface-variant);">De la asfixia del monocultivo al florecimiento de la democracia territorial</span>
+      </div>
+      <div class="season-cells">
+        <button type="button" class="season-cell is-prep" data-zone-btn="1" aria-pressed="false" onclick="selectZone(1)">I · Territorio</button>
+        <button type="button" class="season-cell is-prep" data-zone-btn="2" aria-pressed="false" onclick="selectZone(2)">II · Actores</button>
+        <button type="button" class="season-cell is-peak" data-zone-btn="3" aria-pressed="false" onclick="selectZone(3)">III · Puentes</button>
+        <button type="button" class="season-cell is-peak" data-zone-btn="4" aria-pressed="false" onclick="selectZone(4)">IV · Renacer</button>
+        <button type="button" class="season-cell is-peak" data-zone-btn="5" aria-pressed="false" onclick="selectZone(5)">V · Ética</button>
+      </div>
+    </nav>
+
+    <!-- 2. MURAL VISUAL HORIZONTAL INTERACTIVO -->
+    <section class="mural-section" aria-labelledby="titulo-mural">
+      <div class="section-intro">
+        <p class="kicker">Fase 3 · Mural Simbólico Horizontal</p>
+        <h2 id="titulo-mural">Explora el mural de izquierda a derecha</h2>
+        <p style="margin-bottom: 0; color: var(--on-surface-variant);">
+          Haz clic sobre cualquier sección, actor, puente o hoja constitucional del mural para inspeccionar su significado político, ambiental y administrativo, o alterna el estado del territorio para observar el impacto de la participación.
+        </p>
+      </div>
+
+      <div class="mural-controls-bar">
+        <div class="zone-nav-group" role="group" aria-label="Enfocar sección del mural">
+          <button type="button" class="btn-pill is-active" id="btn-zone-0" onclick="selectZone(0)">Vista panorámica</button>
+          <button type="button" class="btn-pill is-ochre" id="btn-zone-1" onclick="selectZone(1)">1. Territorio</button>
+          <button type="button" class="btn-pill is-ochre" id="btn-zone-2" onclick="selectZone(2)">2. Actores</button>
+          <button type="button" class="btn-pill" id="btn-zone-3" onclick="selectZone(3)">3. Puentes</button>
+          <button type="button" class="btn-pill" id="btn-zone-4" onclick="selectZone(4)">4. Transformación</button>
+          <button type="button" class="btn-pill" id="btn-zone-5" onclick="selectZone(5)">5. Consigna</button>
+        </div>
+
+        <div class="mural-toggles-group">
+          <button type="button" class="btn-secondary" id="btn-toggle-state" aria-pressed="true" onclick="toggleTerritoryState()">
+            <i data-lucide="sprout" aria-hidden="true"></i>
+            <span id="label-territory-state">Transición participativa activa</span>
+          </button>
+          <button type="button" class="btn-secondary" id="btn-toggle-labels" aria-pressed="true" onclick="toggleMuralLabels()">
+            <i data-lucide="tag" aria-hidden="true"></i>
+            <span>Rótulos del mural</span>
+          </button>
+        </div>
+      </div>
+
+      <div class="mural-frame">
+        <div class="mural-scroll-hint">
+          <span>Desliza horizontalmente para recorrer el mural completo</span>
+          <span>5 secciones →</span>
+        </div>
+
+        <div class="mural-stage" id="mural-stage">
+          <svg id="mural-svg" class="mural-svg" data-state="participacion" viewBox="0 0 1440 500" role="img" aria-labelledby="mural-svg-title mural-svg-desc" xmlns="http://www.w3.org/2000/svg">
+            <title id="mural-svg-title">Mural simbólico horizontal: La participación florece en la tierra</title>
+            <desc id="mural-svg-desc">Composición progresiva de izquierda a derecha que muestra el cerco de cañaduzales y pavesa en Candelaria, los actores sociales, el puente de piedra sostenido por raíces doradas de participación ciudadana, el florecimiento del árbol constitucional y la franja ética inferior.</desc>
+
+            <defs>
+              <linearGradient id="mural-sky-grad" x1="0%" y1="0%" x2="100%" y2="0%">
+                <stop offset="0%" class="svg-sky-stop-1"/>
+                <stop offset="28%" class="svg-sky-stop-2"/>
+                <stop offset="60%" class="svg-sky-stop-3"/>
+                <stop offset="100%" class="svg-sky-stop-4"/>
+              </linearGradient>
+              <linearGradient id="mural-ground-grad" x1="0%" y1="0%" x2="100%" y2="0%">
+                <stop offset="0%" class="svg-ground-dry"/>
+                <stop offset="48%" class="svg-ground-rich"/>
+                <stop offset="100%" class="svg-ground-fertile"/>
+              </linearGradient>
+            </defs>
+
+            <!-- Fondo de cielo y suelo continuo -->
+            <rect x="0" y="0" width="1440" height="340" fill="url(#mural-sky-grad)"/>
+            <path d="M0,335 Q240,320 480,334 T960,330 T1440,322 L1440,500 L0,500 Z" fill="url(#mural-ground-grad)"/>
+            <!-- Horizonte de lomas distantes -->
+            <path d="M0,335 Q180,295 360,325 T740,318 T1140,298 T1440,285 L1440,338 L0,338 Z" fill="var(--mural-stone-mid)" opacity="0.28"/>
+
+            <!-- ==================== SECCIÓN 1: TERRITORIO Y CONFLICTO (x: 0 - 340) ==================== -->
+            <g id="hotspot-zone-1" class="mural-hotspot" tabindex="0" role="button" aria-label="Sección 1: Territorio y conflicto en Candelaria, Valle del Cauca" onclick="selectZone(1)" onkeydown="handleSvgKey(event, 1)">
+              <rect class="hotspot-halo" x="10" y="14" width="322" height="466" rx="12"/>
+
+              <!-- Chimeneas agroindustriales lejanas -->
+              <rect x="44" y="142" width="18" height="140" fill="var(--mural-ash-mid)"/>
+              <rect x="74" y="160" width="14" height="122" fill="var(--mural-ash-dark)"/>
+              <polygon points="34,282 106,282 96,245 42,245" fill="var(--mural-ash-dark)"/>
+
+              <!-- Humo y lluvia de ceniza negra ('pavesa') -->
+              <g class="asfixia-extra">
+                <path d="M52,142 C46,112 72,88 112,84 C146,80 182,56 226,64 C264,70 286,92 310,88" fill="none" stroke="var(--mural-ash-dark)" stroke-width="26" stroke-linecap="round" opacity="0.45"/>
+                <circle cx="88" cy="108" r="24" class="svg-smoke-fill"/>
+                <circle cx="128" cy="92" r="30" class="svg-smoke-soft"/>
+                <circle cx="174" cy="84" r="26" class="svg-smoke-fill"/>
+                <circle cx="225" cy="96" r="22" class="svg-smoke-soft"/>
+                <!-- Copos de pavesa cayendo -->
+                <circle cx="110" cy="148" r="2.2" class="svg-pavesa"/>
+                <circle cx="152" cy="166" r="2.8" class="svg-pavesa"/>
+                <circle cx="195" cy="142" r="2.1" class="svg-pavesa"/>
+                <circle cx="238" cy="178" r="2.6" class="svg-pavesa"/>
+                <circle cx="132" cy="202" r="2.4" class="svg-pavesa"/>
+                <circle cx="268" cy="156" r="2.3" class="svg-pavesa"/>
+                <circle cx="182" cy="222" r="2.5" class="svg-pavesa"/>
+                <circle cx="294" cy="214" r="2" class="svg-pavesa"/>
+              </g>
+
+              <!-- Muro tupido de cañaduzales cercando la vivienda -->
+              <g aria-hidden="true">
+                <line x1="22" y1="340" x2="28" y2="210" class="svg-cane-dark"/>
+                <line x1="36" y1="342" x2="42" y2="195" class="svg-cane-stalk"/>
+                <line x1="50" y1="342" x2="54" y2="205" class="svg-cane-dark"/>
+                <line x1="64" y1="340" x2="68" y2="190" class="svg-cane-stalk"/>
+                <line x1="78" y1="342" x2="82" y2="208" class="svg-cane-dark"/>
+                <line x1="92" y1="342" x2="94" y2="215" class="svg-cane-stalk"/>
+                <line x1="262" y1="342" x2="266" y2="206" class="svg-cane-stalk"/>
+                <line x1="276" y1="342" x2="282" y2="192" class="svg-cane-dark"/>
+                <line x1="292" y1="342" x2="296" y2="204" class="svg-cane-stalk"/>
+                <line x1="308" y1="342" x2="314" y2="196" class="svg-cane-dark"/>
+                <line x1="322" y1="342" x2="328" y2="214" class="svg-cane-stalk"/>
+                <!-- Espigas de caña -->
+                <path d="M42,195 Q54,182 64,192" fill="none" stroke="var(--mural-cane-ochre)" stroke-width="2"/>
+                <path d="M68,190 Q78,176 90,188" fill="none" stroke="var(--mural-cane-ochre)" stroke-width="2"/>
+                <path d="M282,192 Q294,178 306,188" fill="none" stroke="var(--mural-cane-ochre)" stroke-width="2"/>
+              </g>
+
+              <!-- Vivienda campesina aislada -->
+              <g transform="translate(116, 248)">
+                <rect x="0" y="34" width="122" height="66" class="svg-wall"/>
+                <polygon points="-10,36 61,-6 132,36" class="svg-roof"/>
+                <!-- Puerta y ventana con cortina plástica protectora -->
+                <rect x="20" y="54" width="26" height="46" fill="var(--mural-earth-rich)"/>
+                <rect x="68" y="50" width="34" height="26" fill="var(--mural-sky-clear)" stroke="var(--mural-stone-dark)" stroke-width="1.5"/>
+                <line x1="85" y1="50" x2="85" y2="76" stroke="var(--mural-stone-dark)" stroke-width="1"/>
+                <!-- Ceniza acumulada en el techo -->
+                <path d="M0,34 L61,-2 L122,34" fill="none" stroke="var(--mural-ash-dark)" stroke-width="4" opacity="0.65"/>
+              </g>
+
+              <!-- Camino veredal interrumpido / cercado -->
+              <path d="M162,348 C164,380 156,410 144,445" fill="none" stroke="var(--mural-stone-light)" stroke-width="14" stroke-dasharray="10 8" opacity="0.7"/>
+              <line x1="120" y1="412" x2="188" y2="412" stroke="var(--error)" stroke-width="3" stroke-dasharray="5 4"/>
+            </g>
+
+            <!-- ==================== SECCIÓN 2: ACTORES SOCIALES (x: 342 - 660) ==================== -->
+            <g id="hotspot-zone-2" class="mural-hotspot" tabindex="0" role="button" aria-label="Sección 2: Actores sociales en tensión y resistencia" onclick="selectZone(2)" onkeydown="handleSvgKey(event, 2)">
+              <rect class="hotspot-halo" x="344" y="14" width="312" height="466" rx="12"/>
+
+              <!-- Familia campesina (Alfonso, Alicia, Gerardo y Manuel con inhalador) -->
+              <g transform="translate(358, 255)">
+                <!-- Cama y cortina de Gerardo (protección contra ceniza) -->
+                <rect x="6" y="42" width="54" height="32" rx="4" fill="var(--mural-stone-light)" stroke="var(--mural-stone-dark)" stroke-width="1.2"/>
+                <rect x="4" y="16" width="58" height="48" fill="var(--mural-cloth-white)" opacity="0.45" stroke="var(--mural-stone-mid)" stroke-dasharray="3 3"/>
+                <!-- Gerardo recostado -->
+                <circle cx="20" cy="48" r="6" fill="var(--mural-skin-warm)"/>
+                <path d="M26,54 L54,54 L54,64 L22,64 Z" fill="var(--mural-cloth-blue)"/>
+
+                <!-- Alicia (resistencia firme) -->
+                <circle cx="84" cy="30" r="8.5" fill="var(--mural-skin-warm)"/>
+                <path d="M72,41 Q84,38 96,41 L100,82 L68,82 Z" fill="var(--mural-cloth-ochre)"/>
+
+                <!-- Alfonso -->
+                <circle cx="114" cy="24" r="8.5" fill="var(--mural-skin-warm)"/>
+                <path d="M98,18 L130,18 L122,12 L106,12 Z" fill="var(--mural-cane-ochre)"/>
+                <path d="M102,35 Q114,32 126,35 L128,82 L100,82 Z" fill="var(--mural-cloth-white)"/>
+
+                <!-- Pequeño Manuel con inhalador -->
+                <circle cx="144" cy="48" r="6.5" fill="var(--mural-skin-warm)"/>
+                <path d="M135,57 L153,57 L155,82 L133,82 Z" fill="var(--mural-cloth-blue)"/>
+                <rect x="137" y="49" width="5" height="9" rx="1" fill="var(--mural-river-clean)"/>
+              </g>
+
+              <!-- Corteros de caña en asamblea / huelga (Esperanza y trabajadores) -->
+              <g transform="translate(526, 266)">
+                <!-- Pancarta colectiva de dignidad laboral -->
+                <line x1="16" y1="68" x2="16" y2="4" stroke="var(--mural-earth-rich)" stroke-width="2.5"/>
+                <rect x="16" y="4" width="84" height="28" rx="3" fill="var(--tertiary-container)" stroke="var(--tertiary)" stroke-width="1.5"/>
+                <line x1="24" y1="14" x2="90" y2="14" stroke="var(--on-tertiary-container)" stroke-width="2.2"/>
+                <line x1="24" y1="22" x2="74" y2="22" stroke="var(--on-tertiary-container)" stroke-width="2.2"/>
+                <!-- Tres figuras de corteros unidos -->
+                <circle cx="44" cy="46" r="7.5" fill="var(--mural-skin-deep)"/>
+                <path d="M34,55 L54,55 L56,82 L32,82 Z" fill="var(--mural-cloth-ochre)"/>
+                <circle cx="70" cy="44" r="7.5" fill="var(--mural-skin-warm)"/>
+                <path d="M60,53 L80,53 L82,82 L58,82 Z" fill="var(--mural-cloth-blue)"/>
+                <circle cx="96" cy="48" r="7" fill="var(--mural-skin-deep)"/>
+                <path d="M87,56 L105,56 L107,82 L85,82 Z" fill="var(--primary)"/>
+              </g>
+
+              <!-- Maquinaria de ingenio al fondo derecho de la zona 2 -->
+              <g transform="translate(542, 186)" opacity="0.82">
+                <rect x="0" y="24" width="66" height="30" rx="4" fill="var(--mural-ash-mid)"/>
+                <rect x="44" y="10" width="22" height="18" rx="2" fill="var(--mural-ash-dark)"/>
+                <circle cx="14" cy="56" r="10" fill="var(--mural-ash-dark)"/>
+                <circle cx="54" cy="56" r="10" fill="var(--mural-ash-dark)"/>
+              </g>
+            </g>
+
+            <!-- ==================== SECCIÓN 3: PUENTES Y RAÍCES (x: 662 - 1030) ==================== -->
+            <g id="hotspot-zone-3" class="mural-hotspot" tabindex="0" role="button" aria-label="Sección 3: Mecanismos de participación como puentes y raíces" onclick="selectZone(3)" onkeydown="handleSvgKey(event, 3)">
+              <rect class="hotspot-halo" x="664" y="14" width="364" height="466" rx="12"/>
+
+              <!-- Raíces doradas subterráneas sustentando el puente -->
+              <g class="participacion-glow">
+                <path d="M845,328 C820,368 770,398 704,442" class="svg-gold-root" stroke-width="5"/>
+                <path d="M845,328 C840,375 824,415 796,462" class="svg-gold-root-bright" stroke-width="4.5"/>
+                <path d="M845,328 C868,376 894,418 928,458" class="svg-gold-root" stroke-width="5"/>
+                <path d="M845,328 C896,368 952,402 1004,446" class="svg-gold-root-bright" stroke-width="4"/>
+                <!-- Ramificaciones secundarias -->
+                <path d="M774,398 C754,418 746,442 740,466" class="svg-gold-root" stroke-width="2.5"/>
+                <path d="M918,402 C944,422 958,442 970,468" class="svg-gold-root" stroke-width="2.5"/>
+              </g>
+
+              <!-- Puente de piedra sobre el cerco -->
+              <path d="M674,335 Q730,262 845,262 Q960,262 1016,335 L982,335 Q935,286 845,286 Q755,286 708,335 Z" class="svg-stone-light"/>
+              <path d="M678,314 Q748,252 845,252 Q942,252 1012,314" fill="none" stroke="var(--mural-stone-dark)" stroke-width="5"/>
+              <!-- Dovelas / piedras del arco -->
+              <line x1="742" y1="276" x2="752" y2="294" stroke="var(--mural-stone-dark)" stroke-width="2"/>
+              <line x1="792" y1="262" x2="796" y2="284" stroke="var(--mural-stone-dark)" stroke-width="2"/>
+              <line x1="845" y1="256" x2="845" y2="282" stroke="var(--mural-stone-dark)" stroke-width="2"/>
+              <line x1="898" y1="262" x2="894" y2="284" stroke="var(--mural-stone-dark)" stroke-width="2"/>
+              <line x1="948" y1="276" x2="938" y2="294" stroke="var(--mural-stone-dark)" stroke-width="2"/>
+
+              <!-- Casa de Gobierno Local / Alcaldía de puertas abiertas -->
+              <g transform="translate(792, 168)">
+                <rect x="0" y="24" width="106" height="62" class="svg-wall"/>
+                <polygon points="-8,24 53,-4 114,24" fill="var(--primary)"/>
+                <!-- Columnas y puerta abierta -->
+                <rect x="12" y="24" width="8" height="62" fill="var(--mural-stone-light)"/>
+                <rect x="86" y="24" width="8" height="62" fill="var(--mural-stone-light)"/>
+                <rect x="38" y="42" width="30" height="44" fill="var(--mural-gold-bright)"/>
+                <!-- Constitución de 1991 en el frontón -->
+                <rect x="43" y="8" width="20" height="14" rx="2" fill="var(--mural-gold-ink)"/>
+              </g>
+            </g>
+
+            <!-- ==================== SECCIÓN 4: TRANSFORMACIÓN Y RENACIMIENTO (x: 1032 - 1440) ==================== -->
+            <g id="hotspot-zone-4" class="mural-hotspot" tabindex="0" role="button" aria-label="Sección 4: Símbolos de transformación, árbol constitucional y siembra conjunta" onclick="selectZone(4)" onkeydown="handleSvgKey(event, 4)">
+              <rect class="hotspot-halo" x="1032" y="14" width="398" height="466" rx="12"/>
+
+              <!-- Río veredal limpio irrigando cultivos de pancoger -->
+              <path d="M1032,354 C1120,342 1170,382 1254,368 C1320,358 1378,384 1440,372 L1440,404 C1372,414 1316,386 1252,398 C1168,412 1114,370 1032,380 Z" class="svg-river participacion-glow"/>
+              <path d="M1066,366 Q1112,360 1152,374" class="svg-river-foam"/>
+              <path d="M1238,382 Q1286,374 1338,384" class="svg-river-foam"/>
+
+              <!-- Surcos de cultivos diversos (pancoger) -->
+              <g transform="translate(1056, 408)" class="participacion-glow">
+                <ellipse cx="26" cy="18" rx="18" ry="10" class="svg-crop"/>
+                <ellipse cx="72" cy="24" rx="20" ry="11" class="svg-crop"/>
+                <ellipse cx="122" cy="18" rx="18" ry="10" class="svg-crop"/>
+                <ellipse cx="168" cy="26" rx="20" ry="11" class="svg-leaf-bright"/>
+                <circle cx="48" cy="12" r="5" fill="var(--tertiary-container)"/>
+                <circle cx="98" cy="16" r="5" fill="var(--tertiary-container)"/>
+              </g>
+
+              <!-- Gran Árbol del Patio florecido con 7 hojas constitucionales -->
+              <g transform="translate(1162, 62)" class="participacion-glow">
+                <!-- Tronco y ramas -->
+                <path d="M106,272 C110,224 110,180 104,132 L128,132 C122,180 124,224 132,272 Z" class="svg-tree-trunk"/>
+                <path d="M112,164 C84,136 58,124 38,116" fill="none" stroke="var(--mural-earth-rich)" stroke-width="8" stroke-linecap="round"/>
+                <path d="M122,154 C154,128 178,118 198,108" fill="none" stroke="var(--mural-earth-rich)" stroke-width="8" stroke-linecap="round"/>
+                <!-- Copa exuberante -->
+                <circle cx="116" cy="92" r="68" class="svg-tree-deep"/>
+                <circle cx="62" cy="112" r="50" class="svg-tree-canopy"/>
+                <circle cx="170" cy="108" r="52" class="svg-tree-canopy"/>
+                <circle cx="116" cy="56" r="46" class="svg-tree-canopy"/>
+
+                <!-- 7 Hojas constitucionales rotuladas -->
+                <g transform="translate(36, 98)"><ellipse cx="0" cy="0" rx="22" ry="12" class="svg-leaf-art"/><text x="0" y="3.5" class="svg-leaf-text">Art. 1</text></g>
+                <g transform="translate(76, 54)"><ellipse cx="0" cy="0" rx="22" ry="12" class="svg-leaf-art"/><text x="0" y="3.5" class="svg-leaf-text">Art. 2</text></g>
+                <g transform="translate(124, 34)"><ellipse cx="0" cy="0" rx="23" ry="12" class="svg-leaf-art"/><text x="0" y="3.5" class="svg-leaf-text">Art. 40</text></g>
+                <g transform="translate(174, 58)"><ellipse cx="0" cy="0" rx="23" ry="12" class="svg-leaf-art"/><text x="0" y="3.5" class="svg-leaf-text">Art. 79</text></g>
+                <g transform="translate(196, 102)"><ellipse cx="0" cy="0" rx="23" ry="12" class="svg-leaf-art"/><text x="0" y="3.5" class="svg-leaf-text">Art. 80</text></g>
+                <g transform="translate(88, 114)"><ellipse cx="0" cy="0" rx="24" ry="12" class="svg-leaf-art"/><text x="0" y="3.5" class="svg-leaf-text">Art. 103</text></g>
+                <g transform="translate(148, 122)"><ellipse cx="0" cy="0" rx="24" ry="12" class="svg-leaf-art"/><text x="0" y="3.5" class="svg-leaf-text">Art. 270</text></g>
+              </g>
+
+              <!-- Manos campesinas y de servidores públicos sembrando juntas un brote -->
+              <g transform="translate(1268, 398)" class="participacion-glow">
+                <!-- Mano campesina izquierda -->
+                <path d="M0,48 C22,42 36,36 52,42 L56,56 C38,56 18,62 0,62 Z" fill="var(--mural-skin-warm)"/>
+                <!-- Mano servidora pública derecha -->
+                <path d="M126,48 C104,42 90,36 74,42 L70,56 C88,56 108,62 126,62 Z" fill="var(--mural-cloth-blue)"/>
+                <!-- Brote verde brillante -->
+                <line x1="63" y1="54" x2="63" y2="18" stroke="var(--primary)" stroke-width="3.5" stroke-linecap="round"/>
+                <path d="M63,30 C46,24 44,12 60,16 Z" fill="var(--mural-crop-green)"/>
+                <path d="M63,24 C80,18 82,6 66,10 Z" fill="var(--mural-leaf-bright)"/>
+              </g>
+            </g>
+
+            <!-- ==================== CAPA DE RÓTULOS DEL MURAL ==================== -->
+            <g id="mural-labels-layer" class="mural-labels-layer" aria-hidden="true">
+              <!-- Encabezados de zona -->
+              <rect x="18" y="22" width="194" height="24" rx="4" class="svg-zone-badge"/>
+              <text x="28" y="38" class="svg-zone-badge-text">1 · TERRITORIO Y CONFLICTO</text>
+
+              <rect x="352" y="22" width="168" height="24" rx="4" class="svg-zone-badge"/>
+              <text x="362" y="38" class="svg-zone-badge-text">2 · ACTORES SOCIALES</text>
+
+              <rect x="674" y="22" width="218" height="24" rx="4" class="svg-zone-badge"/>
+              <text x="684" y="38" class="svg-zone-badge-text">3 · PUENTES Y RAÍCES LEGALES</text>
+
+              <rect x="1044" y="22" width="222" height="24" rx="4" class="svg-zone-badge"/>
+              <text x="1054" y="38" class="svg-zone-badge-text">4 · RENACIMIENTO RURAL</text>
+
+              <!-- Placas sobre el puente y raíces (4 mecanismos) -->
+              <rect x="676" y="338" width="118" height="22" rx="4" class="svg-plaque-bg"/>
+              <text x="735" y="353" text-anchor="middle" class="svg-plaque-text">Consulta Popular</text>
+
+              <rect x="756" y="424" width="114" height="22" rx="4" class="svg-plaque-bg"/>
+              <text x="813" y="439" text-anchor="middle" class="svg-plaque-text">Cabildo Abierto</text>
+
+              <rect x="884" y="424" width="128" height="22" rx="4" class="svg-plaque-bg"/>
+              <text x="948" y="439" text-anchor="middle" class="svg-plaque-text">Veeduría Ciudadana</text>
+
+              <rect x="898" y="338" width="136" height="22" rx="4" class="svg-plaque-bg"/>
+              <text x="966" y="353" text-anchor="middle" class="svg-plaque-text">Audiencia Ambiental</text>
+
+              <!-- Placa Alcaldía y C.P. 1991 -->
+              <rect x="774" y="136" width="142" height="22" rx="4" class="svg-plaque-bg"/>
+              <text x="845" y="151" text-anchor="middle" class="svg-plaque-text">Alcaldía · C.P. 1991</text>
+
+              <!-- Placas zona 1 y 2 -->
+              <rect x="116" y="446" width="148" height="22" rx="4" class="svg-plaque-bg"/>
+              <text x="190" y="461" text-anchor="middle" class="svg-plaque-text">Caminos cercados / Pavesa</text>
+
+              <rect x="364" y="354" width="142" height="22" rx="4" class="svg-plaque-bg"/>
+              <text x="435" y="369" text-anchor="middle" class="svg-plaque-text">Alfonso, Alicia, Gerardo, Manuel</text>
+
+              <rect x="526" y="354" width="118" height="22" rx="4" class="svg-plaque-bg"/>
+              <text x="585" y="369" text-anchor="middle" class="svg-plaque-text">Corteros en huelga</text>
+
+              <rect x="1256" y="466" width="154" height="22" rx="4" class="svg-plaque-bg"/>
+              <text x="1333" y="481" text-anchor="middle" class="svg-plaque-text">Siembra conjunta Estado-Campo</text>
+            </g>
+          </svg>
+        </div>
+
+        <!-- 5. FRANJA INFERIOR DEL MURAL — CONSIGNA ÉTICA -->
+        <div class="mural-ethical-banner" role="button" tabindex="0" onclick="selectZone(5)" onkeydown="handleSvgKey(event, 5)" aria-label="Sección 5: Consigna Ética de la Administración Pública Territorial">
+          <span class="mural-ethical-kicker">5 · Franja Inferior del Mural — Consigna Ética de la Administración Pública Territorial</span>
+          <p class="mural-ethical-quote">
+            «Sin la voz del campesino no hay democracia territorial: la ética del servidor público consiste en abrir caminos de participación para que la justicia ambiental y la vida florezcan en la tierra.»
+          </p>
+        </div>
+      </div>
+
+      <!-- VISOR INTERPRETATIVO SINCRONIZADO (Contigüidad espacial) -->
+      <article class="visor-panel" id="visor-panel" aria-live="polite">
+        <div>
+          <div class="visor-header">
+            <span class="visor-badge" id="visor-badge">Vista panorámica · 5 secciones</span>
+            <span class="mono-label" id="visor-normativa">C.P. 1991 · Leyes 134/1994, 1757/2015 y 99/1993</span>
+          </div>
+          <h3 id="visor-title">Narrativa progresiva del mural: del cerco de ceniza a la justicia territorial</h3>
+          <p id="visor-description" style="margin-bottom: var(--space-sm);">
+            El mural horizontal traza una transición visual de izquierda a derecha: parte del aislamiento rural y la contaminación por quema de caña en Candelaria (Valle del Cauca), presenta a los cinco actores en tensión, tiende un puente de piedra sobre raíces jurídicas doradas mediante los mecanismos de participación ciudadana, y culmina en un territorio reverdecido donde campesinos y servidores públicos siembran juntos el futuro común.
+          </p>
+          <div class="visor-nav-btns">
+            <button type="button" class="btn-secondary" onclick="stepZone(-1)">
+              <i data-lucide="chevron-left" aria-hidden="true"></i>
+              <span>Sección anterior</span>
+            </button>
+            <button type="button" class="btn-secondary" onclick="stepZone(1)">
+              <span>Siguiente sección</span>
+              <i data-lucide="chevron-right" aria-hidden="true"></i>
+            </button>
+          </div>
+        </div>
+        <div class="visor-meta-box">
+          <span class="mono-label">Elementos simbólicos clave en esta zona</span>
+          <ul id="visor-symbols" style="margin: 0; padding-left: 1.2rem; display: grid; gap: 0.35rem; font-size: 0.94rem;">
+            <li><strong>Izquierda:</strong> Vivienda cercada por cañaduzales y lluvia de <em>pavesa</em>.</li>
+            <li><strong>Actores:</strong> Alfonso, Alicia, Gerardo, Manuel, corteros, ingenio, Estado y naturaleza.</li>
+            <li><strong>Centro:</strong> Puente de piedra y raíces doradas con cuatro mecanismos legales.</li>
+            <li><strong>Derecha:</strong> Árbol con 7 hojas constitucionales, río limpio y siembra conjunta.</li>
+          </ul>
+        </div>
+      </article>
+    </section>
+
+    <!-- 3. FASE 1: TERRITORIO, CONFLICTO Y ACTORES SOCIALES -->
+    <section class="narrative-section reveal" aria-labelledby="titulo-fase1">
+      <div class="section-intro">
+        <p class="kicker">Secciones 1 y 2 del Mural · Fase 1: Exploración Reflexiva</p>
+        <h2 id="titulo-fase1">El cerco de ceniza y la asfixia institucional en Candelaria</h2>
+        <p class="lede">
+          En la propuesta narrativa de César Acevedo, el silencio del paisaje revela una expulsión silenciosa: no se requiere violencia armada explícita cuando el abandono estatal y las decisiones unilaterales sobre el uso del suelo cercan la vida campesina.
+        </p>
+      </div>
+
+      <div class="card-grid">
+        <article class="card">
+          <div class="tag-row"><span class="tag">Manifestación A</span><span class="tag is-neutral">Ordenamiento Territorial</span></div>
+          <h3>El cerco territorial y la eliminación de caminos vecinales</h3>
+          <p>
+            El monocultivo agroindustrial de caña de azúcar rodea por completo la vivienda de Alfonso y Alicia, borrando las trochas veredales que comunicaban la parcela con el municipio. Esto evidencia la ausencia de un <strong>Plan de Ordenamiento Territorial (POT) participativo</strong> que proteja la vocación rural y garantice los atributos de disponibilidad y acceso.
+          </p>
+        </article>
+
+        <article class="card">
+          <div class="tag-row"><span class="tag">Manifestación B</span><span class="tag is-neutral">Salud Pública y Ambiente</span></div>
+          <h3>Invisibilización de la contaminación en los cuerpos campesinos</h3>
+          <p>
+            La quema previa a la cosecha desata una lluvia constante de ceniza negra (<em>pavesa</em>) y humo tóxico. Sus consecuencias recaen sobre <strong>Gerardo</strong> —postrado con enfermedad pulmonar crónica tras una cortina de plástico— y el pequeño <strong>Manuel</strong>, dependiente de su inhalador. La falta de veedurías y audiencias previas dejó a la comunidad sin defensa frente al deterioro del aire.
+          </p>
+        </article>
+
+        <article class="card">
+          <div class="tag-row"><span class="tag">Manifestación C</span><span class="tag is-neutral">Dignidad y Arraigo</span></div>
+          <h3>La huelga de corteros y la resistencia campesina</h3>
+          <p>
+            <strong>Esperanza</strong> se suma a la huelga de los corteros para exigir contratación directa, protección y trato digno. Entre tanto, <strong>Alicia</strong> encarna la defensa radical del territorio al negarse a vender la parcela:
+          </p>
+          <blockquote class="pull-quote">«Si nos vamos, es como si nunca hubiéramos existido.»</blockquote>
+        </article>
+      </div>
+
+      <!-- Los 5 Actores Sociales -->
+      <div class="section-intro" style="margin-top: var(--space-sm);">
+        <h3>Cinco actores sociales en interacción territorial</h3>
+        <p style="margin-bottom: 0; color: var(--on-surface-variant);">
+          La transformación democrática exige abrir la deliberación a todos los sujetos que habitan, trabajan y deciden sobre la tierra.
+        </p>
+      </div>
+
+      <div class="card-grid">
+        <div class="card">
+          <span class="mono-label">Actor 01 · Arraigo</span>
+          <h3>Familia campesina</h3>
+          <p style="margin: 0; font-size: 0.95rem;">Alfonso, Alicia, Gerardo y Manuel representan la soberanía alimentaria familiar, la memoria rural y la vulneración simultánea de los derechos a la salud, al ambiente sano y a permanecer en el territorio.</p>
+        </div>
+        <div class="card">
+          <span class="mono-label">Actor 02 · Trabajo rural</span>
+          <h3>Corteros de caña en huelga</h3>
+          <p style="margin: 0; font-size: 0.95rem;">Esperanza y los trabajadores agrícolas movilizados exigen condiciones laborales justas y se articulan como sujeto colectivo capaz de interpelar el modelo extractivo.</p>
+        </div>
+        <div class="card">
+          <span class="mono-label">Actor 03 · Capital productivo</span>
+          <h3>Ingenio agroindustrial</h3>
+          <p style="margin: 0; font-size: 0.95rem;">Expresión del monocultivo extensivo, la maquinaria y las quemas sin concertación comunitaria que privatizan de facto los bienes comunes: suelo, agua y aire.</p>
+        </div>
+        <div class="card">
+          <span class="mono-label">Actor 04 · Garante público</span>
+          <h3>Institucionalidad pública</h3>
+          <p style="margin: 0; font-size: 0.95rem;">Alcaldía, Concejo Municipal, Personería, Registraduría y autoridades ambientales (CAR / ANLA) llamadas a pasar de la pasividad a garantizar canales reales de decisión.</p>
+        </div>
+        <div class="card">
+          <span class="mono-label">Actor 05 · Bienes comunes</span>
+          <h3>Naturaleza y territorio</h3>
+          <p style="margin: 0; font-size: 0.95rem;">El gran árbol del patio y el río veredal simbolizan la vida ecosistémica que padece la pavesa pero también guarda la potencia de regeneración cuando se ordena el suelo con justicia.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 4. FASE 2: FUNDAMENTACIÓN NORMATIVA Y FICHAS DESPLEGABLES -->
+    <section class="narrative-section reveal" aria-labelledby="titulo-fase2">
+      <div class="section-intro">
+        <p class="kicker">Sección 3 del Mural · Fase 2: Fundamentación Teórica y Normativa</p>
+        <h2 id="titulo-fase2">Mecanismos de participación como puentes y raíces</h2>
+        <p class="lede">
+          Siguiendo la guía didáctica de la asignatura (Sánchez, 2025), la participación ciudadana se articula en dos sentidos inseparables: un <strong>aspecto político</strong> (derecho constitucional a defender lo común) y un <strong>aspecto administrativo</strong> (procedimientos y garantías reales de disponibilidad, acceso, calidad y permanencia).
+        </p>
+      </div>
+
+      <!-- Cifras diagnósticas de la democracia colombiana (Guía ESAP 2025) -->
+      <div class="metrics-row" aria-label="Indicadores críticos de la participación ciudadana en Colombia">
+        <div class="metric-tile">
+          <span class="mono-label">Abstencionismo legislativo</span>
+          <span class="metric-value">51,25 %</span>
+          <span class="metric-caption">Desencanto democrático · Registraduría (2024)</span>
+        </div>
+        <div class="metric-tile">
+          <span class="mono-label">Abstencionismo ejecutivo</span>
+          <span class="metric-value">43,43 %</span>
+          <span class="metric-caption">Brecha de representación · Registraduría (2024)</span>
+        </div>
+        <div class="metric-tile">
+          <span class="mono-label">Pérdidas por corrupción</span>
+          <span class="metric-value">+21 billones</span>
+          <span class="metric-caption">COP · Transparencia por Colombia (2024)</span>
+        </div>
+        <div class="metric-tile">
+          <span class="mono-label">Población afectada</span>
+          <span class="metric-value">15 millones</span>
+          <span class="metric-caption">Calidad de vida vulnerada en lo público</span>
+        </div>
+      </div>
+
+      <!-- Fichas explicativas desplegables -->
+      <div class="mechanisms-header-bar">
+        <div>
+          <h3>Fichas explicativas desplegables por mecanismo de participación</h3>
+          <p style="margin: 0; color: var(--on-surface-variant); font-size: 0.95rem;">
+            Despliega cada mecanismo para consultar su sustento legal, procedimiento institucional y aplicación directa al conflicto territorial de Candelaria.
+          </p>
+        </div>
+        <div style="display: flex; gap: var(--space-xs); flex-wrap: wrap;">
+          <button type="button" class="btn-secondary" onclick="toggleAllMechanisms(true)">Desplegar todas</button>
+          <button type="button" class="btn-secondary" onclick="toggleAllMechanisms(false)">Contraer todas</button>
+        </div>
+      </div>
+
+      <div class="mechanisms-list" id="mechanisms-list">
+        <!-- Mecanismo 1 -->
+        <article class="mechanism-card">
+          <button type="button" class="mechanism-trigger" aria-expanded="true" aria-controls="mech-body-1" onclick="toggleMechanism(1, this)">
+            <div class="mechanism-trigger-main">
+              <div class="mechanism-title-row">
+                <span class="tag is-leaf">Mecanismo 1</span>
+                <strong style="font-family: var(--font-headline); font-size: 1.2rem;">Consulta Popular (Territorial)</strong>
+              </div>
+              <span class="mono-label">Art. 103 C.P. · Ley 134 de 1994 · Ley 1757 de 2015 (Art. 18)</span>
+            </div>
+            <span class="mechanism-chevron" aria-hidden="true"><i data-lucide="chevron-down"></i></span>
+          </button>
+          <div class="mechanism-body" id="mech-body-1">
+            <div class="mechanism-grid">
+              <div class="mechanism-field">
+                <h4>Origen y sustento legal</h4>
+                <p>De origen ciudadano o de autoridad local. Fundamentada en el Artículo 103 de la Constitución Política de 1991, la Ley 134 de 1994 y la Ley Estatutaria 1757 de 2015 (Art. 18).</p>
+              </div>
+              <div class="mechanism-field">
+                <h4>Instancia y procedimiento</h4>
+                <p>Convocada por el Alcalde previo concepto favorable del Concejo Municipal o promovida mediante recolección de firmas ciudadanas ante la Registraduría. Culmina en votación popular de carácter vinculante.</p>
+              </div>
+              <div class="mechanism-field">
+                <h4>Aplicación al conflicto territorial</h4>
+                <p>Permite que la comunidad decida de manera directa y obligatoria sobre el modelo de uso del suelo municipal, frenando la expansión desmedida del monocultivo de caña sobre reservas agrícolas y fuentes hídricas.</p>
+              </div>
+            </div>
+            <p class="pull-quote" style="margin: 0;">
+              Importancia territorial: «Devuelve al pueblo la palabra vinculante sobre qué se cultiva, qué se protege y cómo se ordena el suelo que sostiene la vida rural.»
+            </p>
+          </div>
+        </article>
+
+        <!-- Mecanismo 2 -->
+        <article class="mechanism-card">
+          <button type="button" class="mechanism-trigger" aria-expanded="false" aria-controls="mech-body-2" onclick="toggleMechanism(2, this)">
+            <div class="mechanism-trigger-main">
+              <div class="mechanism-title-row">
+                <span class="tag is-leaf">Mecanismo 2</span>
+                <strong style="font-family: var(--font-headline); font-size: 1.2rem;">Cabildo Abierto</strong>
+              </div>
+              <span class="mono-label">Art. 103 C.P. · Ley 134 de 1994 · Ley 1757 de 2015</span>
+            </div>
+            <span class="mechanism-chevron" aria-hidden="true"><i data-lucide="chevron-down"></i></span>
+          </button>
+          <div class="mechanism-body" id="mech-body-2" hidden>
+            <div class="mechanism-grid">
+              <div class="mechanism-field">
+                <h4>Origen y sustento legal</h4>
+                <p>Mecanismo de iniciativa ciudadana directa. Consagrado en el Artículo 103 de la Constitución Política de 1991 y reglamentado por las Leyes 134 de 1994 y 1757 de 2015.</p>
+              </div>
+              <div class="mechanism-field">
+                <h4>Instancia y procedimiento</h4>
+                <p>Solicitado por un número de ciudadanos no inferior al 0,5 % del censo electoral municipal. Exige la realización de una sesión pública obligatoria del Concejo Municipal o de la Junta Administradora Local (JAL).</p>
+              </div>
+              <div class="mechanism-field">
+                <h4>Aplicación al conflicto territorial</h4>
+                <p>Obliga a los concejales y al alcalde a escuchar directamente a las familias campesinas y a los corteros en huelga para debatir la reapertura de caminos veredales, la salud pública por ceniza y la revisión del POT.</p>
+              </div>
+            </div>
+            <p class="pull-quote" style="margin: 0;">
+              Importancia territorial: «Rompe el silencio institucional al sentar a las autoridades locales frente a la voz directa de la vereda.»
+            </p>
+          </div>
+        </article>
+
+        <!-- Mecanismo 3 -->
+        <article class="mechanism-card">
+          <button type="button" class="mechanism-trigger" aria-expanded="false" aria-controls="mech-body-3" onclick="toggleMechanism(3, this)">
+            <div class="mechanism-trigger-main">
+              <div class="mechanism-title-row">
+                <span class="tag is-leaf">Mecanismo 3</span>
+                <strong style="font-family: var(--font-headline); font-size: 1.2rem;">Veeduría Ciudadana</strong>
+              </div>
+              <span class="mono-label">Art. 270 C.P. · Ley 850 de 2003 · Ley 1757 de 2015</span>
+            </div>
+            <span class="mechanism-chevron" aria-hidden="true"><i data-lucide="chevron-down"></i></span>
+          </button>
+          <div class="mechanism-body" id="mech-body-3" hidden>
+            <div class="mechanism-grid">
+              <div class="mechanism-field">
+                <h4>Origen y sustento legal</h4>
+                <p>Iniciativa de organizaciones civiles y comunidades. Sustentada en el Artículo 270 de la Constitución Política, la Ley 850 de 2003 y la Ley Estatutaria 1757 de 2015.</p>
+              </div>
+              <div class="mechanism-field">
+                <h4>Instancia y procedimiento</h4>
+                <p>Se constituye democráticamente mediante acta de conformación e inscripción ante la Personería Municipal o Cámara de Comercio para ejercer vigilancia autónoma sobre la gestión pública y el cumplimiento normativo.</p>
+              </div>
+              <div class="mechanism-field">
+                <h4>Aplicación al conflicto territorial</h4>
+                <p>Permite a los habitantes vigilar el cumplimiento de la normativa ambiental de los ingenios, fiscalizar el uso de agroquímicos y exigir sanciones ante la autoridad ambiental por la contaminación del aire con pavesa.</p>
+              </div>
+            </div>
+            <p class="pull-quote" style="margin: 0;">
+              Importancia territorial: «Convierte a la comunidad en guardiana permanente de la salud ambiental y de la transparencia en la gestión pública.»
+            </p>
+          </div>
+        </article>
+
+        <!-- Mecanismo 4 -->
+        <article class="mechanism-card">
+          <button type="button" class="mechanism-trigger" aria-expanded="false" aria-controls="mech-body-4" onclick="toggleMechanism(4, this)">
+            <div class="mechanism-trigger-main">
+              <div class="mechanism-title-row">
+                <span class="tag">Mecanismo Ambiental</span>
+                <strong style="font-family: var(--font-headline); font-size: 1.2rem;">Audiencia Pública Ambiental</strong>
+              </div>
+              <span class="mono-label">Arts. 79 y 80 C.P. · Ley 99 de 1993 · Decreto 1076 de 2015</span>
+            </div>
+            <span class="mechanism-chevron" aria-hidden="true"><i data-lucide="chevron-down"></i></span>
+          </button>
+          <div class="mechanism-body" id="mech-body-4" hidden>
+            <div class="mechanism-grid">
+              <div class="mechanism-field">
+                <h4>Origen y sustento legal</h4>
+                <p>Mecanismo especializado del Sistema Nacional Ambiental (SINA) instituido por la Ley 99 de 1993 y compilado en el Decreto 1076 de 2015, en desarrollo de los Artículos 79 y 80 constitucionales.</p>
+              </div>
+              <div class="mechanism-field">
+                <h4>Instancia y procedimiento</h4>
+                <p>Puede ser solicitada por el Procurador, Defensor del Pueblo, Gobernador, Alcalde o por al menos 100 ciudadanos ante la Autoridad Ambiental competente (CAR o ANLA) antes o durante el trámite de licencias o permisos.</p>
+              </div>
+              <div class="mechanism-field">
+                <h4>Aplicación al conflicto territorial</h4>
+                <p>Abre un espacio deliberativo formal donde la comunidad presenta las evidencias del daño respiratorio causado por la quema de caña —como los casos de Gerardo y Manuel— y exige condicionamientos técnicos obligatorios.</p>
+              </div>
+            </div>
+            <p class="pull-quote" style="margin: 0;">
+              Importancia territorial: «Garantiza que ninguna licencia o práctica agroindustrial prevalezca sobre el derecho fundamental a respirar un aire sano.»
+            </p>
+          </div>
+        </article>
+      </div>
+
+      <!-- Explorador de las 7 Hojas Constitucionales -->
+      <div class="section-intro" style="margin-top: var(--space-md);">
+        <h3>Las hojas del árbol constitucional (Constitución Política de 1991 y Leyes)</h3>
+        <p style="margin-bottom: 0; color: var(--on-surface-variant);">
+          Selecciona cada artículo o ley representada en el follaje del árbol del mural para consultar su mandato en la construcción de justicia territorial.
+        </p>
+      </div>
+
+      <div class="const-articles-bar" role="group" aria-label="Artículos constitucionales y leyes">
+        <button type="button" class="leaf-btn" aria-pressed="true" onclick="selectArticle('art1', this)">Art. 1 C.P.</button>
+        <button type="button" class="leaf-btn" aria-pressed="false" onclick="selectArticle('art2', this)">Art. 2 C.P.</button>
+        <button type="button" class="leaf-btn" aria-pressed="false" onclick="selectArticle('art40', this)">Art. 40 C.P.</button>
+        <button type="button" class="leaf-btn" aria-pressed="false" onclick="selectArticle('art79', this)">Art. 79 C.P.</button>
+        <button type="button" class="leaf-btn" aria-pressed="false" onclick="selectArticle('art80', this)">Art. 80 C.P.</button>
+        <button type="button" class="leaf-btn" aria-pressed="false" onclick="selectArticle('art103', this)">Art. 103 C.P.</button>
+        <button type="button" class="leaf-btn" aria-pressed="false" onclick="selectArticle('art270', this)">Art. 270 C.P.</button>
+        <button type="button" class="leaf-btn" aria-pressed="false" onclick="selectArticle('ley1757', this)">Ley 1757/2015</button>
+        <button type="button" class="leaf-btn" aria-pressed="false" onclick="selectArticle('ley134', this)">Ley 134/1994</button>
+        <button type="button" class="leaf-btn" aria-pressed="false" onclick="selectArticle('ley99', this)">Ley 99/1993</button>
+      </div>
+
+      <article class="const-detail-card" id="const-detail-card" aria-live="polite">
+        <span class="mono-label" id="const-kicker">Constitución Política de 1991 · Principio fundamental</span>
+        <h3 id="const-title">Artículo 1° — Estado Social de Derecho, participativo y pluralista</h3>
+        <p id="const-body" style="margin-bottom: 0;">
+          Define a Colombia como un Estado Social de Derecho organizado en forma de República unitaria, descentralizada, con autonomía de sus entidades territoriales, democrática, participativa y pluralista, fundada en el respeto de la dignidad humana, el trabajo, la solidaridad y la prevalencia del interés general.
+        </p>
+      </article>
+
+      <!-- Tabla comparativa sintética -->
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Mecanismo</th>
+              <th>Origen / Sustento</th>
+              <th>Instancia de trámite</th>
+              <th>Impacto frente al conflicto</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>Consulta Popular</strong></td>
+              <td>Ciudadano o autoridad local · Art. 103 C.P., Ley 1757/2015</td>
+              <td>Alcalde + Concejo Municipal + Registraduría</td>
+              <td>Decisión vinculante sobre el modelo de uso del suelo municipal.</td>
+            </tr>
+            <tr>
+              <td><strong>Cabildo Abierto</strong></td>
+              <td>Iniciativa ciudadana (0,5% censo) · Ley 134/1994, Ley 1757/2015</td>
+              <td>Concejo Municipal o JAL en sesión pública obligatoria</td>
+              <td>Escucha directa sobre caminos veredales, ceniza y huelga de corteros.</td>
+            </tr>
+            <tr>
+              <td><strong>Veeduría Ciudadana</strong></td>
+              <td>Organizaciones civiles · Art. 270 C.P., Ley 850/2003</td>
+              <td>Inscripción en Personería Municipal o Cámara de Comercio</td>
+              <td>Vigilancia autónoma de quema de caña, pesticidas y gestión local.</td>
+            </tr>
+            <tr>
+              <td><strong>Audiencia Ambiental</strong></td>
+              <td>100 ciudadanos o autoridades · Ley 99/1993, Decreto 1076/2015</td>
+              <td>Autoridad Ambiental competente (CAR o ANLA)</td>
+              <td>Exige condicionamientos técnicos frente al daño respiratorio y del aire.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- 5. SECCIONES 4 Y 5: TRANSFORMACIÓN Y APRENDIZAJES ÉTICOS DEL TALLER -->
+    <section class="narrative-section reveal" aria-labelledby="titulo-etica">
+      <div class="section-intro">
+        <p class="kicker">Secciones 4 y 5 del Mural · Transformación y Aprendizajes Éticos</p>
+        <h2 id="titulo-etica">De espectadores pasivos a dinamizadores de la justicia territorial</h2>
+        <p class="lede">
+          Cuando la administración pública territorial garantiza los cuatro atributos legales de la participación —<strong>disponibilidad, acceso, calidad y permanencia</strong>—, el territorio transita de la ceniza a la soberanía alimentaria y la convivencia democrática.
+        </p>
+      </div>
+
+      <div class="card-grid-2">
+        <!-- Tarjeta destacada Pale-Leaf (Regla Canopy: exactamente una por vista) -->
+        <article class="card is-leaf-highlight">
+          <span class="mono-label" style="color: var(--on-primary-container);">Aprendizaje ético central · Administración Pública Territorial</span>
+          <h3>El deber ineludible del servidor público en los territorios</h3>
+          <p>
+            Como señala la guía de la ESAP (Sánchez, 2025) y el análisis crítico de la película, cuando las entidades públicas operan con pasividad frente al poder agroindustrial o permiten la cooptación local, crecen el desencanto democrático y la desconfianza institucional.
+          </p>
+          <p style="margin-bottom: 0;">
+            El administrador público territorial debe garantizar que los planes de ordenamiento urbano y rural integren la voz campesina en los niveles <strong>informativo, consultivo, decisorio y de cogestión</strong>, evitando que la productividad económica signifique la fractura del tejido social.
+          </p>
+        </article>
+
+        <!-- Símbolos de transformación -->
+        <article class="card">
+          <span class="mono-label">Sección 4 del Mural · Renacimiento rural</span>
+          <h3>Símbolos de transformación visual y ecológica</h3>
+          <ul style="margin: 0; padding-left: 1.2rem; display: grid; gap: var(--space-xs);">
+            <li><strong>Transición cromática:</strong> El paso de tonos ocres y grises de ceniza hacia verdes intensos y azules cristalinos simboliza la recuperación de la salud ambiental.</li>
+            <li><strong>El árbol constitucional:</strong> El gran árbol del patio florece cuando los artículos 1, 2, 40, 79, 80, 103 y 270 dejan de ser letra muerta y echan raíz en la vereda.</li>
+            <li><strong>Río limpio y pancoger:</strong> El agua descontaminada vuelve a irrigar cultivos diversos para garantizar la soberanía alimentaria familiar.</li>
+            <li><strong>Manos en siembra conjunta:</strong> La alianza ética entre campesinos y servidores públicos que cultivan juntos el bienestar común.</li>
+          </ul>
+        </article>
+      </div>
+
+      <!-- Conclusiones y aprendizajes clave del taller -->
+      <ol class="ethics-list" aria-label="Conclusiones e implicaciones para la gestión pública">
+        <li class="ethics-item">
+          <span class="ethics-num">1</span>
+          <div>
+            <h3 style="margin-bottom: 0.2rem;">Visibilizar el despojo imperceptible</h3>
+            <p style="margin: 0; font-size: 0.96rem;">
+              <em>La tierra y la sombra</em> demuestra que la ausencia de gobernanza participativa en áreas rurales produce formas silenciosas de despojo, deterioro de la salud pública y ruptura comunitaria sin necesidad de violencia armada explícita.
+            </p>
+          </div>
+        </li>
+        <li class="ethics-item">
+          <span class="ethics-num">2</span>
+          <div>
+            <h3 style="margin-bottom: 0.2rem;">Activar la arquitectura constitucional existente</h3>
+            <p style="margin: 0; font-size: 0.96rem;">
+              La Constitución de 1991 y el artículo 110 de la Ley Estatutaria 1757 de 2015 otorgan al Estado el mandato activo de difundir información, formar a la ciudadanía, proteger la libre movilización y apoyar el control social.
+            </p>
+          </div>
+        </li>
+        <li class="ethics-item">
+          <span class="ethics-num">3</span>
+          <div>
+            <h3 style="margin-bottom: 0.2rem;">Superar el abstencionismo con resultados prácticos</h3>
+            <p style="margin: 0; font-size: 0.96rem;">
+              Como expone Jürgen Habermas en la teoría de la acción comunicativa citada en la unidad, la identidad ciudadana nace de la praxis activa: garantizar disponibilidad, acceso, calidad y permanencia permite pasar del escepticismo a una democracia territorial con justicia ambiental.
+            </p>
+          </div>
+        </li>
+      </ol>
+
+      <!-- Cierre Reflexivo -->
+      <aside class="closing-quote-card" aria-label="Cierre reflexivo del taller">
+        <span class="mono-label" style="color: var(--mural-gold-ink);">Cierre reflexivo · Ética y ciudadanía</span>
+        <blockquote>
+          «El poder de la ciudadanía florece cuando la gente se une para cuidar su tierra y su historia.»
+        </blockquote>
+        <cite>— Inspirado en César Acevedo y Boaventura de Sousa Santos</cite>
+      </aside>
+    </section>
+
+    <!-- 6. REFERENCIAS BIBLIOGRÁFICAS -->
+    <footer class="narrative-section" aria-labelledby="titulo-refs">
+      <div class="section-intro">
+        <p class="kicker">Fuentes y Sustento Documental</p>
+        <h2 id="titulo-refs" style="font-size: var(--subhead-size);">Referencias bibliográficas y créditos del taller</h2>
+      </div>
+      <ul class="refs-list">
+        <li>Acevedo, C. A. (Director). (2015). <em>La tierra y la sombra</em> [Película]. Burning Blue; Ciné-Sud Promotion; Topkapi Films.</li>
+        <li>Congreso de la República de Colombia. (1993, 22 de diciembre). Ley 99 de 1993, por la cual se crea el Ministerio del Medio Ambiente y se organiza el Sistema Nacional Ambiental (SINA). Diario Oficial No. 41.146.</li>
+        <li>Congreso de la República de Colombia. (1994, 31 de mayo). Ley 134 de 1994, por la cual se dictan normas sobre mecanismos de participación ciudadana. Diario Oficial No. 41.373.</li>
+        <li>Congreso de la República de Colombia. (2015, 6 de julio). Ley Estatutaria 1757 de 2015, por la cual se dictan disposiciones en materia de promoción y protección del derecho a la participación democrática. Diario Oficial No. 49.565.</li>
+        <li>Constitución Política de Colombia. (1991). Artículos 1, 2, 40, 79, 80, 103 y 270. Gaceta Constitucional No. 116.</li>
+        <li>Sánchez, A. M. (2025). <em>Convivencia y participación ciudadana: Unidad 2. Participación ciudadana</em> [Guía didáctica de pregrado]. Escuela Superior de Administración Pública (ESAP).</li>
+        <li>Síntesis analítica y propuesta de mural elaboradas a partir de la solución a la Actividad Integradora Unidad 2 (Programa de Administración Pública Territorial, CETAP Fusagasugá — Haiber Humberto Clavijo Alarcón).</li>
+      </ul>
+    </footer>
+  </main>
+
+  <script>
+    const ZONES_DATA = {
+      0: {
+        badge: `Vista panorámica · 5 secciones`,
+        badgeGreen: true,
+        normativa: `C.P. 1991 · Leyes 134/1994, 1757/2015 y 99/1993`,
+        title: `Narrativa progresiva del mural: del cerco de ceniza a la justicia territorial`,
+        description: `El mural horizontal traza una transición visual de izquierda a derecha: parte del aislamiento rural y la contaminación por quema de caña en Candelaria (Valle del Cauca), presenta a los cinco actores en tensión, tiende un puente de piedra sobre raíces jurídicas doradas mediante los mecanismos de participación ciudadana, y culmina en un territorio reverdecido donde campesinos y servidores públicos siembran juntos el futuro común.`,
+        symbols: [
+          `<strong>Izquierda (Sección 1):</strong> Vivienda cercada por cañaduzales y lluvia de <em>pavesa</em>.`,
+          `<strong>Actores (Sección 2):</strong> Alfonso, Alicia, Gerardo, Manuel, corteros, ingenio, Estado y naturaleza.`,
+          `<strong>Centro (Sección 3):</strong> Puente de piedra y raíces doradas con cuatro mecanismos legales.`,
+          `<strong>Derecha (Sección 4):</strong> Árbol con 7 hojas constitucionales, río limpio y siembra conjunta.`,
+          `<strong>Franja inferior (Sección 5):</strong> Consigna ética de la Administración Pública Territorial.`
+        ]
+      },
+      1: {
+        badge: `Sección 1 · Territorio y Conflicto`,
+        badgeGreen: false,
+        normativa: `Candelaria, Valle del Cauca · Ausencia de POT participativo`,
+        title: `El cerco de ceniza: aislamiento rural y lluvia de pavesa`,
+        description: `En el extremo izquierdo del mural, una humilde vivienda campesina aparece rodeada por muros tupidos de cañaduzales en tonos ocres y grises. Desde las chimeneas del ingenio agroindustrial descienden nubes densas de ceniza negra ('pavesa'), mientras los antiguos caminos vecinales quedan cortados por decisiones unilaterales sobre el uso del suelo.`,
+        symbols: [
+          `<strong>Cañaduzales cerrados:</strong> Representan la expansión del monocultivo sin concertación territorial.`,
+          `<strong>Lluvia de pavesa:</strong> Simboliza la contaminación atmosférica invisible que enferma los cuerpos.`,
+          `<strong>Camino interrumpido:</strong> Denuncia la negación del acceso y la conectividad veredal campesina.`,
+          `<strong>Techo oscurecido:</strong> Refleja la asfixia ambiental y económica frente al abandono estatal.`
+        ]
+      },
+      2: {
+        badge: `Sección 2 · Actores Sociales`,
+        badgeGreen: false,
+        normativa: `Tensión entre capital agroindustrial, trabajo, comunidad y Estado`,
+        title: `Los cinco actores sociales en interacción y resistencia`,
+        description: `En primer plano dialogan y resisten los protagonistas de la historia: Gerardo postrado detrás de una cortina plástica contra la ceniza, el pequeño Manuel con su inhalador, Alfonso y Alicia defendiendo el arraigo familiar, Esperanza junto a los corteros en huelga por trato digno, la maquinaria del ingenio y la naturaleza que reclama protección.`,
+        symbols: [
+          `<strong>Gerardo y Manuel:</strong> Encarnan la deuda en salud pública por las quemas de caña sin control.`,
+          `<strong>Alicia y Alfonso:</strong> Representan la resistencia digna: "Si nos vamos, es como si nunca hubiéramos existido".`,
+          `<strong>Esperanza y corteros:</strong> Movilización laboral por contratación directa y elementos de protección.`,
+          `<strong>Maquinaria agroindustrial:</strong> Poder económico privado que requiere regulación y control social.`
+        ]
+      },
+      3: {
+        badge: `Sección 3 · Puentes y Raíces`,
+        badgeGreen: true,
+        normativa: `Arts. 103 y 270 C.P. · Ley 134/1994 · Ley 1757/2015 · Ley 99/1993`,
+        title: `Mecanismos de participación ciudadana como puentes de piedra y raíces doradas`,
+        description: `Sobre los cañaduzales se eleva un sólido puente de piedra sostenido por raíces doradas subterráneas que conecta directamente la parcela campesina con una alcaldía de puertas abiertas. La institucionalidad democrática deja de ser lejana cuando se materializa en cuatro herramientas concretas de decisión y vigilancia.`,
+        symbols: [
+          `<strong>Consulta Popular:</strong> Decisión vinculante sobre el ordenamiento y uso del suelo municipal.`,
+          `<strong>Cabildo Abierto:</strong> Sesión pública obligatoria del Concejo para escuchar a veredas y corteros.`,
+          `<strong>Veeduría Ciudadana:</strong> Control social autónomo sobre quemas, agroquímicos y gestión pública.`,
+          `<strong>Audiencia Ambiental:</strong> Intervención comunitaria ante CAR o ANLA frente a licencias y emisiones.`
+        ]
+      },
+      4: {
+        badge: `Sección 4 · Transformación y Renacimiento`,
+        badgeGreen: true,
+        normativa: `Arts. 1, 2, 40, 79, 80, 103 y 270 de la Constitución Política`,
+        title: `Árbol constitucional, río limpio y siembra conjunta`,
+        description: `En el tramo derecho, la paleta de ceniza cede paso a verdes intensos y azules limpios. El gran árbol del patio florece llevando en sus hojas los siete artículos constitucionales clave; el río veredal vuelve a irrigar huertas de pancoger y las manos de campesinos y servidores públicos siembran juntas un brote vivo.`,
+        symbols: [
+          `<strong>7 hojas constitucionales:</strong> Artículos 1, 2, 40, 79, 80, 103 y 270 hechos vida territorial.`,
+          `<strong>Río limpio y pancoger:</strong> Recuperación del agua y de la soberanía alimentaria familiar.`,
+          `<strong>Manos unidas en siembra:</strong> Cogestión ética entre la comunidad rural y el servidor público.`,
+          `<strong>Luz y follaje verde:</strong> Paso del desencanto democrático hacia la justicia ambiental.`
+        ]
+      },
+      5: {
+        badge: `Sección 5 · Franja Inferior Ética`,
+        badgeGreen: true,
+        normativa: `Ética del Administrador Público Territorial · Ley 1757/2015 (Art. 110)`,
+        title: `Consigna Ética de la Administración Pública Territorial`,
+        description: `Recorriendo toda la base del mural en letras doradas sobre azul noche, la consigna resume la responsabilidad formativa del taller: la participación no es un trámite decorativo, sino el deber ético de abrir caminos reales para que la voz campesina decida sobre su territorio y su historia.`,
+        symbols: [
+          `<strong>Voz campesina:</strong> Condición indispensable de legitimidad para cualquier POT o decisión rural.`,
+          `<strong>Disponibilidad y acceso:</strong> Garantías legales que el Estado debe asegurar en las veredas.`,
+          `<strong>Justicia ambiental:</strong> Equilibrio entre desarrollo productivo, salud humana y cuidado de los bienes comunes.`,
+          `<strong>Ética pública:</strong> Transformar el silencio institucional en diálogo deliberativo permanente.`
+        ]
+      }
+    };
+
+    const ARTICLES_DATA = {
+      art1: {
+        kicker: `Constitución Política de 1991 · Principio fundamental`,
+        title: `Artículo 1° — Estado Social de Derecho, participativo y pluralista`,
+        body: `Define a Colombia como un Estado Social de Derecho organizado en forma de República unitaria, descentralizada, con autonomía de sus entidades territoriales, democrática, participativa y pluralista, fundada en el respeto de la dignidad humana, el trabajo, la solidaridad y la prevalencia del interés general.`
+      },
+      art2: {
+        kicker: `Constitución Política de 1991 · Fines esenciales del Estado`,
+        title: `Artículo 2° — Facilitar la participación de todos`,
+        body: `Establece como fin esencial del Estado facilitar la participación de todos en las decisiones que los afectan y en la vida económica, política, administrativa y cultural de la Nación, asegurando la convivencia pacífica y la vigencia de un orden justo.`
+      },
+      art40: {
+        kicker: `Constitución Política de 1991 · Derecho fundamental`,
+        title: `Artículo 40 — Derecho a conformar, ejercer y controlar el poder político`,
+        body: `Garantiza a todo ciudadano el derecho a participar en la conformación, ejercicio y control del poder político, incluyendo tomar parte en elecciones, plebiscitos, referendos, consultas populares, cabildos abiertos y revocatorias, así como interponer acciones públicas en defensa de la Constitución y la ley.`
+      },
+      art79: {
+        kicker: `Constitución Política de 1991 · Derechos colectivos y del ambiente`,
+        title: `Artículo 79 — Derecho a gozar de un ambiente sano`,
+        body: `Consagra que todas las personas tienen derecho a gozar de un ambiente sano y ordena que la ley garantice la participación de la comunidad en las decisiones que puedan afectarlo. Es deber del Estado proteger la diversidad e integridad del ambiente.`
+      },
+      art80: {
+        kicker: `Constitución Política de 1991 · Planificación ambiental`,
+        title: `Artículo 80 — Planificación y control del deterioro ambiental`,
+        body: `Asigna al Estado el deber de planificar el manejo y aprovechamiento de los recursos naturales para garantizar su desarrollo sostenible, su conservación o sustitución, y prevenir y controlar los factores de deterioro ambiental con participación comunitaria.`
+      },
+      art103: {
+        kicker: `Constitución Política de 1991 · Mecanismos democráticos`,
+        title: `Artículo 103 — Mecanismos de participación del pueblo`,
+        body: `Enumera los mecanismos de participación ciudadana en ejercicio de la soberanía: el voto, el plebiscito, el referendo, la consulta popular, el cabildo abierto, la iniciativa legislativa y la revocatoria del mandato, obligando al Estado a contribuir a la organización ciudadana.`
+      },
+      art270: {
+        kicker: `Constitución Política de 1991 · Control social`,
+        title: `Artículo 270 — Vigilancia ciudadana sobre la gestión pública`,
+        body: `Ordena que la ley organice las formas y sistemas de participación ciudadana que permitan vigilar la gestión pública en los diversos niveles administrativos y sus resultados, fundamento directo de las veedurías ciudadanas.`
+      },
+      ley1757: {
+        kicker: `Ley Estatutaria de Participación Democrática`,
+        title: `Ley 1757 de 2015 (y Artículo 110) — Garantías y promoción democrática`,
+        body: `Regula los mecanismos de participación ciudadana (iniciativa, referendo, consulta popular, revocatoria, plebiscito y cabildo abierto). Su artículo 110 obliga explícitamente al Estado a garantizar la libre movilización, formación ciudadana, difusión adecuada de información y apoyo al control social.`
+      },
+      ley134: {
+        kicker: `Marco Estatutario Originario`,
+        title: `Ley 134 de 1994 — Normas sobre mecanismos de participación ciudadana`,
+        body: `Desarrolló por primera vez los requisitos, procedimientos, recolecciones de apoyos y reglas de votación de los mecanismos constitucionales de participación del Artículo 103, sentando la arquitectura procedimental junto con la Ley 1757 de 2015.`
+      },
+      ley99: {
+        kicker: `Ley General Ambiental de Colombia`,
+        title: `Ley 99 de 1993 — Creación del SINA y Audiencia Pública Ambiental`,
+        body: `Crea el Ministerio del Medio Ambiente y organiza el Sistema Nacional Ambiental (SINA). Institucionaliza la Audiencia Pública Ambiental y el derecho de intervención ciudadana en la expedición o modificación de licencias y permisos ambientales.`
+      }
+    };
+
+    let currentZone = 0;
+
+    function selectZone(zoneId) {
+      currentZone = zoneId;
+      const data = ZONES_DATA[zoneId] || ZONES_DATA[0];
+
+      // Update zone buttons in toolbar
+      for (let i = 0; i <= 5; i++) {
+        const btn = document.getElementById(`btn-zone-${i}`);
+        if (btn) {
+          btn.classList.toggle('is-active', i === zoneId);
+        }
+      }
+
+      // Update phenology strip buttons
+      const stripBtns = document.querySelectorAll('.season-cell[data-zone-btn]');
+      stripBtns.forEach(function(el) {
+        const z = Number(el.getAttribute('data-zone-btn'));
+        el.setAttribute('aria-pressed', z === zoneId ? 'true' : 'false');
+      });
+
+      // Update SVG hotspot highlights & dimming
+      for (let z = 1; z <= 4; z++) {
+        const g = document.getElementById(`hotspot-zone-${z}`);
+        if (!g) continue;
+        if (zoneId === 0 || zoneId === 5) {
+          g.classList.remove('is-dimmed');
+          g.classList.remove('is-focused');
+        } else if (z === zoneId) {
+          g.classList.remove('is-dimmed');
+          g.classList.add('is-focused');
+        } else {
+          g.classList.add('is-dimmed');
+          g.classList.remove('is-focused');
+        }
+      }
+
+      // Update visor content
+      const badge = document.getElementById('visor-badge');
+      const norm = document.getElementById('visor-normativa');
+      const title = document.getElementById('visor-title');
+      const desc = document.getElementById('visor-description');
+      const symbols = document.getElementById('visor-symbols');
+
+      if (badge) {
+        badge.textContent = data.badge;
+        badge.classList.toggle('is-green', Boolean(data.badgeGreen));
+      }
+      if (norm) norm.textContent = data.normativa;
+      if (title) title.textContent = data.title;
+      if (desc) desc.textContent = data.description;
+      if (symbols) {
+        symbols.innerHTML = data.symbols.map(function(item) {
+          return `<li>${item}</li>`;
+        }).join('');
+      }
+    }
+
+    function stepZone(delta) {
+      let next = currentZone + delta;
+      if (next < 0) next = 5;
+      if (next > 5) next = 0;
+      selectZone(next);
+    }
+
+    function handleSvgKey(event, zoneId) {
+      if (event.key === 'Enter' || event.key === ' ') {
+        event.preventDefault();
+        selectZone(zoneId);
+      }
+    }
+
+    function toggleTerritoryState() {
+      const svg = document.getElementById('mural-svg');
+      const btn = document.getElementById('btn-toggle-state');
+      const lbl = document.getElementById('label-territory-state');
+      if (!svg || !btn || !lbl) return;
+
+      const isParticipacion = svg.getAttribute('data-state') === 'participacion';
+      if (isParticipacion) {
+        svg.setAttribute('data-state', 'asfixia');
+        btn.setAttribute('aria-pressed', 'false');
+        lbl.textContent = `Sin participación: asfixia de pavesa`;
+      } else {
+        svg.setAttribute('data-state', 'participacion');
+        btn.setAttribute('aria-pressed', 'true');
+        lbl.textContent = `Transición participativa activa`;
+      }
+    }
+
+    function toggleMuralLabels() {
+      const layer = document.getElementById('mural-labels-layer');
+      const btn = document.getElementById('btn-toggle-labels');
+      if (!layer || !btn) return;
+
+      const isPressed = btn.getAttribute('aria-pressed') === 'true';
+      btn.setAttribute('aria-pressed', isPressed ? 'false' : 'true');
+      layer.classList.toggle('is-hidden', isPressed);
+    }
+
+    function toggleMechanism(id, triggerBtn) {
+      const body = document.getElementById(`mech-body-${id}`);
+      if (!body || !triggerBtn) return;
+
+      const expanded = triggerBtn.getAttribute('aria-expanded') === 'true';
+      triggerBtn.setAttribute('aria-expanded', expanded ? 'false' : 'true');
+      if (expanded) {
+        body.setAttribute('hidden', '');
+      } else {
+        body.removeAttribute('hidden');
+      }
+    }
+
+    function toggleAllMechanisms(expandAll) {
+      const triggers = document.querySelectorAll('.mechanism-trigger');
+      triggers.forEach(function(btn) {
+        const controlsId = btn.getAttribute('aria-controls');
+        if (!controlsId) return;
+        const body = document.getElementById(controlsId);
+        if (!body) return;
+        btn.setAttribute('aria-expanded', expandAll ? 'true' : 'false');
+        if (expandAll) {
+          body.removeAttribute('hidden');
+        } else {
+          body.setAttribute('hidden', '');
+        }
+      });
+    }
+
+    function selectArticle(key, clickedBtn) {
+      const item = ARTICLES_DATA[key];
+      if (!item) return;
+
+      const allBtns = document.querySelectorAll('.leaf-btn');
+      allBtns.forEach(function(b) {
+        b.setAttribute('aria-pressed', 'false');
+      });
+      if (clickedBtn) {
+        clickedBtn.setAttribute('aria-pressed', 'true');
+      }
+
+      const kicker = document.getElementById('const-kicker');
+      const title = document.getElementById('const-title');
+      const body = document.getElementById('const-body');
+
+      if (kicker) kicker.textContent = item.kicker;
+      if (title) title.textContent = item.title;
+      if (body) body.textContent = item.body;
+    }
+
+    // Initialize icons and scroll reveals safely
+    document.addEventListener('DOMContentLoaded', function() {
+      if (typeof lucide !== 'undefined' && typeof lucide.createIcons === 'function') {
+        lucide.createIcons();
+      }
+
+      const revealEls = document.querySelectorAll('.reveal');
+      if ('IntersectionObserver' in window) {
+        const observer = new IntersectionObserver(function(entries, obs) {
+          entries.forEach(function(entry) {
+            if (entry.isIntersecting) {
+              entry.target.classList.add('is-visible');
+              obs.unobserve(entry.target);
+            }
+          });
+        }, { threshold: 0.1 });
+
+        revealEls.forEach(function(el) {
+          observer.observe(el);
+        });
+      } else {
+        revealEls.forEach(function(el) {
+          el.classList.add('is-visible');
+        });
+      }
+    });
+  </script>
+</body>
+</html>
